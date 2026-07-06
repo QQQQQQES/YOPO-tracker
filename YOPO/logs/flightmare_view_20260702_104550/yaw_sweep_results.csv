@@ -1,5 +1,0 @@
-angle,max_obj,mean_obj,detected_ratio,samples,reason_counts
-0,0.000843949,0.000669152,0.000000,121,"{"paper_score_fallback": 120}"
-90,0.004377500,0.003200638,0.000000,120,"{"paper_score_fallback": 120}"
-180,0.000714523,0.000577170,0.000000,120,"{"paper_score_fallback": 120}"
-270,0.009918492,0.006523542,0.000000,121,"{"paper_score_fallback": 120}"

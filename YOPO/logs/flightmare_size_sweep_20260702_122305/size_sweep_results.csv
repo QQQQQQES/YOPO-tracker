@@ -1,5 +1,0 @@
-scale,max_obj,mean_obj,detected_ratio,samples,reason_counts
-1.0,0.000843113,0.000591913,0.000000,120,"{"paper_score_fallback": 120}"
-1.5,0.000315410,0.000179904,0.000000,121,"{"paper_score_fallback": 121}"
-2.0,0.001753997,0.001169033,0.000000,121,"{"paper_score_fallback": 120}"
-3.0,0.999334395,0.998289513,1.000000,122,"{"objectness_filter_min_score": 120}"

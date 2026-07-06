@@ -1,2 +1,0 @@
-checkpoint,samples,top1_grid_acc,top3_grid_acc,pos_objectness,neg_objectness,objectness_margin,true_cell_camera_l2_m,top1_camera_l2_m,true_cell_uv_l2_px,true_cell_depth_abs_m
-epoch48.pth,186,0.8440860215053764,1.0,0.9999201406714737,0.0007948397471570472,0.9991253009243167,0.13902400530153705,0.15611155363180304,2.7559344947979016,0.07618756892700349

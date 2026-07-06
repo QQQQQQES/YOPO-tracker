@@ -15,6 +15,7 @@ Simulator/.catkin_tools/
 # YOPO saved models
 YOPO/saved/
 YOPO/run_logs/
+YOPO/logs/
 
 # Dataset / simulation data
 dataset/

@@ -1,8 +1,0 @@
-[WARN] [1782984063.778050403, 1779854695.386146776]: Shutdown request received.
-[WARN] [1782984063.778138673, 1779854695.386146776]: Reason given for shutdown: [user request]
-[INFO] [1782982779.558416768]: Subscribing to /LIVO2/imu_propagate
-[INFO] [1782982779.559219835]: Subscribing to /yopo_net/best_traj_visual
-[INFO] [1782982779.559709908]: Subscribing to /yopo_net/target_world
-[INFO] [1782982779.560623905]: Subscribing to /yopo_net/tracking_debug
-[INFO] [1782982779.561128939]: Subscribing to /yopo_net/trajs_visual
-[INFO] [1782982779.773831863, 1779854918.519960411]: Recording to 'yopo_debug_outputs.bag'.

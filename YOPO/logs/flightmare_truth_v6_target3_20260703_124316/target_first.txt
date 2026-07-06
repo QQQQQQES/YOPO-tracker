@@ -1,2 +1,0 @@
-WARNING: no messages received and simulated time is active.
-Is /clock being published?
