@@ -1,0 +1,440 @@
+diff --git a/YOPO/test_yopo_ros.py b/YOPO/test_yopo_ros.py
+index 841673a..11a0d83 100644
+--- a/YOPO/test_yopo_ros.py
++++ b/YOPO/test_yopo_ros.py
+@@ -7,6 +7,7 @@ from sensor_msgs.msg import PointCloud2, PointField, Image
+ from sensor_msgs import point_cloud2
+ 
+ import cv2
++import json
+ import os
+ import time
+ import torch
+@@ -15,11 +16,24 @@ import argparse
+ from scipy.spatial.transform import Rotation as R
+ 
+ from config.config import cfg
+-from control_msg import PositionCommand
+ from policy.yopo_network import YopoNetwork
+ from policy.poly_solver import *
+ from policy.state_transform import *
+ 
++try:
++    from quadrotor_msgs.msg import PositionCommand
++    POSITION_COMMAND_SOURCE = "ros:quadrotor_msgs.msg"
++except ImportError:
++    from control_msg import PositionCommand
++    POSITION_COMMAND_SOURCE = "local:control_msg"
++
++try:
++    from traj_utils.msg import PolyTraj
++    POLY_TRAJ_AVAILABLE = True
++except ImportError:
++    PolyTraj = None
++    POLY_TRAJ_AVAILABLE = False
++
+ try:
+     from torch2trt import TRTModule
+ except ImportError:
+@@ -30,6 +44,11 @@ class YopoNet:
+     def __init__(self, config, weight):
+         self.config = config
+         rospy.init_node('yopo_net', anonymous=False)
++        rospy.loginfo(
++            "Using PositionCommand from %s (md5=%s)",
++            POSITION_COMMAND_SOURCE,
++            getattr(PositionCommand, "_md5sum", "unknown"),
++        )
+         # load params
+         cfg["train"] = False
+         self.height = cfg['image_height']
+@@ -40,6 +59,15 @@ class YopoNet:
+         self.use_trt = self.config['use_tensorrt']
+         self.verbose = self.config['verbose']
+         self.visualize = self.config['visualize']
++        self.image_channels = int(cfg.get('image_channels', 1))
++        self.selection_mode = self.config.get('selection_mode', 'score')
++        self.objectness_threshold = float(self.config.get('objectness_threshold', 0.5))
++        self.publish_pos_cmd = self.config.get('publish_pos_cmd', True)
++        self.publish_poly_traj = self.config.get('publish_poly_traj', False)
++        self.poly_traj_topic = self.config.get('poly_traj_topic', '/planning_cmd/poly_traj')
++        self.drone_id = int(self.config.get('drone_id', 0))
++        self.kx = np.asarray(self.config.get('kx', [7.0, 7.0, 6.2]), dtype=np.float64)
++        self.kv = np.asarray(self.config.get('kv', [4.0, 4.0, 4.0]), dtype=np.float64)
+         self.Rotation_bc = R.from_euler('ZYX', [0, self.config['pitch_angle_deg'], 0], degrees=True).as_matrix()
+         self.device = "cuda" if torch.cuda.is_available() else "cpu"
+ 
+@@ -59,6 +87,7 @@ class YopoNet:
+         self.optimal_poly_z = None
+         self.lock = Lock()
+         self.last_control_msg = None
++        self.poly_traj_id = 0
+         self.state_transform = StateTransform()
+         self.lattice_primitive = LatticePrimitive.get_instance()
+         self.traj_time = self.lattice_primitive.segment_time
+@@ -88,7 +117,15 @@ class YopoNet:
+         self.lattice_traj_pub = rospy.Publisher("/yopo_net/lattice_trajs_visual", PointCloud2, queue_size=1)
+         self.best_traj_pub = rospy.Publisher("/yopo_net/best_traj_visual", PointCloud2, queue_size=1)
+         self.all_trajs_pub = rospy.Publisher("/yopo_net/trajs_visual", PointCloud2, queue_size=1)
+-        self.ctrl_pub = rospy.Publisher(self.config["ctrl_topic"], PositionCommand, queue_size=1)
++        self.tracking_debug_pub = rospy.Publisher("/yopo_net/tracking_debug", std_msgs.msg.String, queue_size=5)
++        self.ctrl_pub = rospy.Publisher(self.config["ctrl_topic"], PositionCommand, queue_size=1) if self.publish_pos_cmd else None
++        self.poly_traj_pub = None
++        if self.publish_poly_traj:
++            if POLY_TRAJ_AVAILABLE:
++                self.poly_traj_pub = rospy.Publisher(self.poly_traj_topic, PolyTraj, queue_size=1)
++            else:
++                rospy.logerr("publish_poly_traj is enabled, but traj_utils.msg.PolyTraj cannot be imported. "
++                             "Source the MPC workspace, e.g. /home/zml/ommpc_ws/devel/setup.bash.")
+         # ros subscriber
+         self.odom_sub = rospy.Subscriber(self.config['odom_topic'], Odometry, self.callback_odometry, queue_size=1, tcp_nodelay=True)
+         self.depth_sub = rospy.Subscriber(self.config['depth_topic'], Image, self.callback_depth, queue_size=1, tcp_nodelay=True)
+@@ -100,8 +137,11 @@ class YopoNet:
+         rospy.spin()
+ 
+     def callback_set_goal(self, data):
+-        self.goal = np.asarray([data.pose.position.x, data.pose.position.y, 2])
++        self.goal = np.asarray([data.pose.position.x, data.pose.position.y, 0.8])
+         self.arrive = False
++        self.desire_init = False
++        self.ctrl_time = None
++        self.last_control_msg = None
+         print(f"New Goal: ({data.pose.position.x:.1f}, {data.pose.position.y:.1f})")
+ 
+     # the first frame
+@@ -117,7 +157,7 @@ class YopoNet:
+         self.odom_init = True
+ 
+         pos = np.array((self.odom.pose.pose.position.x, self.odom.pose.pose.position.y, self.odom.pose.pose.position.z))
+-        if np.linalg.norm(pos - self.goal) < 5 and not self.arrive:
++        if np.linalg.norm(pos - self.goal) < 0.5 and not self.arrive:
+             print("Arrive!")
+             self.arrive = True
+ 
+@@ -145,6 +185,7 @@ class YopoNet:
+     @torch.inference_mode()
+     def callback_depth(self, data):
+         if not self.odom_init: return
++        if self.arrive: return
+ 
+         # 1. Depth Image Process (Be careful with the depth units in your application)
+         time0 = time.time()
+@@ -163,7 +204,16 @@ class YopoNet:
+         nan_mask = np.isnan(depth) | (depth < self.min_dis / self.max_dis)
+         interpolated_image = cv2.inpaint(np.uint8(depth * 255), np.uint8(nan_mask), 1, cv2.INPAINT_NS)
+         interpolated_image = interpolated_image.astype(np.float32) / 255.0
+-        depth = interpolated_image.reshape([1, 1, self.height, self.width])
++        image = interpolated_image.astype(np.float32)
++        if self.image_channels == 1:
++            depth = image.reshape([1, 1, self.height, self.width])
++        elif self.image_channels == 3:
++            depth = np.repeat(image.reshape([1, 1, self.height, self.width]), 3, axis=1)
++        elif self.image_channels == 4:
++            gray_rgb = np.repeat(image.reshape([1, 1, self.height, self.width]), 3, axis=1)
++            depth = np.concatenate((gray_rgb, image.reshape([1, 1, self.height, self.width])), axis=1)
++        else:
++            raise ValueError(f"Unsupported image_channels={self.image_channels}. Expected 1, 3, or 4.")
+         # cv2.imshow("1", depth[0][0])
+         # cv2.waitKey(1)
+ 
+@@ -177,18 +227,29 @@ class YopoNet:
+ 
+         time2 = time.time()
+         # Forward (TensorRT: inference speed increased by 5x)
+-        endstate_pred, score_pred = self.policy(depth_input, obs_input)
++        output = self.policy(depth_input, obs_input)
++        if len(output) == 2:
++            endstate_pred, score_pred = output
++            objectness_pred = None
++        else:
++            endstate_pred, score_pred, objectness_logit, _target_raw = output
++            objectness_pred = torch.sigmoid(objectness_logit).cpu().numpy()
+         endstate_pred, score_pred = endstate_pred.cpu().numpy(), score_pred.cpu().numpy()
+         time3 = time.time()
+ 
+         # 3. Post-Processing
+         # Replacing PyTorch operation on CUDA with NumPy operation on CPU (speed increased by 10x)
+-        endstate, score = self.process_output(endstate_pred, score_pred, return_all_preds=self.visualize)
++        endstate, score, selected_action_id = self.process_output(
++            endstate_pred,
++            score_pred,
++            objectness_pred=objectness_pred,
++            return_all_preds=self.visualize,
++        )
+         # Vectorization: transform the prediction(P V A in body frame) to the world frame with the attitude (without the position)
+         endstate_c = endstate.reshape(-1, 3, 3).transpose(0, 2, 1)  # [N, 9] -> [N, 3, 3] -> [px vx ax, py vy ay, pz vz az]
+         endstate_w = np.matmul(self.Rotation_wc, endstate_c)
+ 
+-        action_id = np.argmin(score) if self.visualize else 0
++        action_id = selected_action_id if self.visualize else 0
+         with self.lock:  # Python3.8: threads are scheduled using time slices, add the lock to ensure safety
+             start_pos = self.desire_pos if self.plan_from_reference else np.array((self.odom.pose.pose.position.x, self.odom.pose.pose.position.y, self.odom.pose.pose.position.z))
+             start_vel = self.desire_vel if self.plan_from_reference else np.array((self.odom.twist.twist.linear.x, self.odom.twist.twist.linear.y, self.odom.twist.twist.linear.z))
+@@ -199,6 +260,8 @@ class YopoNet:
+             self.optimal_poly_z = Poly5Solver(start_pos[2], start_vel[2], self.desire_acc[2], endstate_w[action_id, 2, 0] + start_pos[2],
+                                               endstate_w[action_id, 2, 1], endstate_w[action_id, 2, 2], self.traj_time)
+             self.ctrl_time = 0.0
++            self.publish_poly_traj_msg()
++        self.publish_tracking_debug(score_pred, objectness_pred, selected_action_id)
+         time4 = time.time()
+         self.visualize_trajectory(score_pred, endstate_w)
+         time5 = time.time()
+@@ -206,19 +269,74 @@ class YopoNet:
+         self.print_time(time0, time1, time2, time3, time4, time5)
+ 
+     def control_pub(self, _timer):
+-        if self.ctrl_time is None or self.ctrl_time > self.traj_time:
++        if self.arrive:
++            if self.ctrl_pub is None:
++                return
++
++            with self.lock:
++                hold_pos = self.desire_pos
++                if hold_pos is None:
++                    hold_pos = np.array((self.odom.pose.pose.position.x,
++                                         self.odom.pose.pose.position.y,
++                                         self.odom.pose.pose.position.z))
++                control_msg = PositionCommand()
++                control_msg.header.stamp = rospy.Time.now()
++                control_msg.header.frame_id = "world"
++                control_msg.trajectory_flag = control_msg.TRAJECTORY_STATUS_EMPTY
++                control_msg.trajectory_id = 0
++                control_msg.position.x = float(hold_pos[0])
++                control_msg.position.y = float(hold_pos[1])
++                control_msg.position.z = float(hold_pos[2])
++                control_msg.velocity.x = 0.0
++                control_msg.velocity.y = 0.0
++                control_msg.velocity.z = 0.0
++                control_msg.acceleration.x = 0.0
++                control_msg.acceleration.y = 0.0
++                control_msg.acceleration.z = 0.0
++                control_msg.yaw = self.last_yaw
++                control_msg.yaw_dot = 0.0
++                control_msg.kx = self.kx.tolist()
++                control_msg.kv = self.kv.tolist()
++
++                if hasattr(control_msg, "jerk"):
++                    control_msg.jerk.x = 0.0
++                    control_msg.jerk.y = 0.0
++                    control_msg.jerk.z = 0.0
++                if hasattr(control_msg, "angular_velocity"):
++                    control_msg.angular_velocity.x = 0.0
++                    control_msg.angular_velocity.y = 0.0
++                    control_msg.angular_velocity.z = 0.0
++                if hasattr(control_msg, "attitude"):
++                    control_msg.attitude.x = 0.0
++                    control_msg.attitude.y = 0.0
++                    control_msg.attitude.z = self.last_yaw
++                if hasattr(control_msg, "thrust"):
++                    control_msg.thrust.x = 0.0
++                    control_msg.thrust.y = 0.0
++                    control_msg.thrust.z = 0.0
++                if hasattr(control_msg, "vel_norm"):
++                    control_msg.vel_norm = 0.0
++                if hasattr(control_msg, "acc_norm"):
++                    control_msg.acc_norm = 0.0
++
++                self.desire_pos = np.array(hold_pos, dtype=np.float64)
++                self.desire_vel = np.zeros(3)
++                self.desire_acc = np.zeros(3)
++                self.desire_init = True
++                self.ctrl_time = None
++                self.last_control_msg = control_msg
++                self.ctrl_pub.publish(control_msg)
+             return
+-        if self.arrive and self.last_control_msg is not None:
+-            self.desire_init = False   # ready for next rollout
+-            self.last_control_msg.trajectory_flag = self.last_control_msg.TRAJECTORY_STATUS_EMPTY
+-            self.ctrl_pub.publish(self.last_control_msg)
++        if self.ctrl_time is None or self.ctrl_time > self.traj_time:
+             return
+ 
+         with self.lock:  # Python3.8: threads are scheduled using time slices, add the lock to ensure safety and publish frequency
+             self.ctrl_time += self.ctrl_dt
+             control_msg = PositionCommand()
+             control_msg.header.stamp = rospy.Time.now()
++            control_msg.header.frame_id = "world"
+             control_msg.trajectory_flag = control_msg.TRAJECTORY_STATUS_READY
++            control_msg.trajectory_id = 0
+             control_msg.position.x = self.optimal_poly_x.get_position(self.ctrl_time)
+             control_msg.position.y = self.optimal_poly_y.get_position(self.ctrl_time)
+             control_msg.position.z = self.optimal_poly_z.get_position(self.ctrl_time)
+@@ -236,24 +354,103 @@ class YopoNet:
+             self.last_yaw = yaw
+             control_msg.yaw = yaw
+             control_msg.yaw_dot = yaw_dot
++            control_msg.kx = self.kx.tolist()
++            control_msg.kv = self.kv.tolist()
++
++            # Some controllers use an extended PositionCommand ABI.
++            if hasattr(control_msg, "jerk"):
++                control_msg.jerk.x = 0.0
++                control_msg.jerk.y = 0.0
++                control_msg.jerk.z = 0.0
++            if hasattr(control_msg, "angular_velocity"):
++                control_msg.angular_velocity.x = 0.0
++                control_msg.angular_velocity.y = 0.0
++                control_msg.angular_velocity.z = 0.0
++            if hasattr(control_msg, "attitude"):
++                control_msg.attitude.x = 0.0
++                control_msg.attitude.y = 0.0
++                control_msg.attitude.z = yaw
++            if hasattr(control_msg, "thrust"):
++                control_msg.thrust.x = 0.0
++                control_msg.thrust.y = 0.0
++                control_msg.thrust.z = 0.0
++            if hasattr(control_msg, "vel_norm"):
++                control_msg.vel_norm = float(np.linalg.norm(self.desire_vel))
++            if hasattr(control_msg, "acc_norm"):
++                control_msg.acc_norm = float(np.linalg.norm(self.desire_acc))
+             self.desire_init = True
+             self.last_control_msg = control_msg
+-            self.ctrl_pub.publish(control_msg)
++            if self.ctrl_pub is not None:
++                self.ctrl_pub.publish(control_msg)
+ 
+-    def process_output(self, endstate_pred, score_pred, return_all_preds=False):
++    def publish_poly_traj_msg(self):
++        if self.poly_traj_pub is None:
++            return
++
++        self.poly_traj_id += 1
++        poly_msg = PolyTraj()
++        poly_msg.drone_id = self.drone_id
++        poly_msg.traj_id = self.poly_traj_id
++        poly_msg.start_time = rospy.Time.now()
++        poly_msg.order = 5
++        poly_msg.duration = [float(self.traj_time)]
++        poly_msg.coef_x = self.mpc_coef_order(self.optimal_poly_x)
++        poly_msg.coef_y = self.mpc_coef_order(self.optimal_poly_y)
++        poly_msg.coef_z = self.mpc_coef_order(self.optimal_poly_z)
++        self.poly_traj_pub.publish(poly_msg)
++
++    @staticmethod
++    def mpc_coef_order(poly):
++        return [float(poly.A[i]) for i in range(5, -1, -1)]
++
++    def process_output(self, endstate_pred, score_pred, objectness_pred=None, return_all_preds=False):
+         endstate_pred = endstate_pred.reshape(9, self.lattice_primitive.traj_num).T
+         score_pred = score_pred.reshape(self.lattice_primitive.traj_num)
++        objectness = None
++        if objectness_pred is not None:
++            objectness = objectness_pred.reshape(self.lattice_primitive.traj_num)
+ 
+         if not return_all_preds:
+-            action_id = np.argmin(score_pred)
++            action_id = self.select_action(score_pred, objectness)
+             lattice_id = self.lattice_primitive.traj_num - 1 - action_id
+             endstate = self.state_transform.pred_to_endstate_cpu(endstate_pred[action_id, :][np.newaxis, :], lattice_id)
+             score = score_pred[action_id]
++            selected_action_id = action_id
+         else:
+             score = score_pred
+             endstate = self.state_transform.pred_to_endstate_cpu(endstate_pred, torch.arange(self.lattice_primitive.traj_num-1, -1, -1))
+-
+-        return endstate, score
++            selected_action_id = self.select_action(score_pred, objectness)
++
++        return endstate, score, selected_action_id
++
++    def select_action(self, score_pred, objectness):
++        if objectness is None or self.selection_mode == 'score':
++            return int(np.argmin(score_pred))
++        if self.selection_mode == 'objectness':
++            return int(np.argmax(objectness))
++        if self.selection_mode == 'hybrid':
++            best_object_id = int(np.argmax(objectness))
++            if float(objectness[best_object_id]) >= self.objectness_threshold:
++                return best_object_id
++            return int(np.argmin(score_pred))
++        raise ValueError(f"Unsupported selection_mode={self.selection_mode}. Expected score, objectness, or hybrid.")
++
++    def publish_tracking_debug(self, score_pred, objectness_pred, selected_action_id):
++        if self.tracking_debug_pub.get_num_connections() == 0:
++            return
++        score = score_pred.reshape(self.lattice_primitive.traj_num)
++        debug = {
++            "stamp": rospy.Time.now().to_sec(),
++            "selection_mode": self.selection_mode,
++            "selected_action": int(selected_action_id),
++            "min_score": float(np.min(score)),
++            "selected_score": float(score[selected_action_id]),
++        }
++        if objectness_pred is not None:
++            obj = objectness_pred.reshape(self.lattice_primitive.traj_num)
++            debug["max_objectness"] = float(np.max(obj))
++            debug["selected_objectness"] = float(obj[selected_action_id])
++        self.tracking_debug_pub.publish(json.dumps(debug, separators=(",", ":")))
+ 
+     def visualize_trajectory(self, pred_score, pred_endstate):
+         dt = self.traj_time / 20.0
+@@ -352,10 +549,11 @@ class YopoNet:
+                   f"visualize-trajectory: \033[32m{1000 * self.time_visualize / self.count:.2f} ms\033[0m")
+ 
+     def warm_up(self):
+-        depth = torch.zeros((1, 1, self.height, self.width), dtype=torch.float32, device=self.device)
++        depth = torch.zeros((1, self.image_channels, self.height, self.width), dtype=torch.float32, device=self.device)
+         obs = torch.zeros((1, 9), dtype=torch.float32, device=self.device)
+         obs = self.state_transform.prepare_input(obs)
+-        endstate_pred, score_pred = self.policy(depth, obs)
++        output = self.policy(depth, obs)
++        endstate_pred = output[0]
+         _ = self.state_transform.pred_to_endstate(endstate_pred)
+ 
+ 
+@@ -364,23 +562,46 @@ def parser():
+     parser.add_argument("--use_tensorrt", type=int, default=0, help="use tensorrt or not")
+     parser.add_argument("--trial", type=int, default=1, help="trial number")
+     parser.add_argument("--epoch", type=int, default=50, help="epoch number")
++    parser.add_argument("--weight", type=str, default="", help="explicit checkpoint path")
++    parser.add_argument("--goal", type=float, nargs=3, default=[0.0, 0.0, 2.0], help="world-frame goal/target prior")
++    parser.add_argument("--odom_topic", type=str, default="/LIVO2/imu_propagate")
++    parser.add_argument("--depth_topic", type=str, default="/iris_0/realsense/depth_camera/depth/image_raw")
++    parser.add_argument("--ctrl_topic", type=str, default="/planning/pos_cmd")
++    parser.add_argument("--plan_from_reference", type=int, default=0)
++    parser.add_argument("--publish_pos_cmd", type=int, default=1)
++    parser.add_argument("--publish_poly_traj", type=int, default=0)
++    parser.add_argument("--poly_traj_topic", type=str, default="/planning_cmd/poly_traj")
++    parser.add_argument("--pitch_angle_deg", type=float, default=0.0)
++    parser.add_argument("--selection_mode", type=str, default="score", choices=["score", "objectness", "hybrid"])
++    parser.add_argument("--objectness_threshold", type=float, default=0.5)
++    parser.add_argument("--verbose", type=int, default=0)
++    parser.add_argument("--visualize", type=int, default=1)
+     return parser
+ 
+ 
+ if __name__ == "__main__":
+     args = parser().parse_args()
+     base_dir = os.path.dirname(os.path.abspath(__file__))
+-    weight = "yopo_trt.pth" if args.use_tensorrt else base_dir + "/saved/YOPO_{}/epoch{}.pth".format(args.trial, args.epoch)
++    if args.weight:
++        weight = args.weight
++    else:
++        weight = "yopo_trt.pth" if args.use_tensorrt else base_dir + "/saved/YOPO_{}/epoch{}.pth".format(args.trial, args.epoch)
+     print("load weight from:", weight)
+ 
+     settings = {'use_tensorrt': args.use_tensorrt,
+-                'goal': [50, 0, 2],      # 目标点位置
+-                'pitch_angle_deg': -0,   # 相机俯仰角(仰为负)
+-                'odom_topic': '/sim/odom',                   # 里程计话题
+-                'depth_topic': '/depth_image',               # 深度图话题
+-                'ctrl_topic': '/so3_control/pos_cmd',        # 控制器话题
+-                'plan_from_reference': False,   # 从参考状态规划？位置控制器: True, 神经网络直接控制: False
+-                'verbose': False,               # 打印耗时？
+-                'visualize': True               # 可视化所有轨迹？(实飞改为False节省计算)
++                'goal': args.goal,      # 目标点位置
++                'pitch_angle_deg': args.pitch_angle_deg,   # 相机俯仰角(仰为负)
++                'odom_topic': args.odom_topic,                   # 里程计话题
++                'depth_topic': args.depth_topic,               # 深度图话题
++                'ctrl_topic': args.ctrl_topic,        # 控制器话题
++                'publish_pos_cmd': bool(args.publish_pos_cmd),      # 使用MPC控制时关闭PositionCommand输出
++                'publish_poly_traj': bool(args.publish_poly_traj),     # 输出traj_utils/PolyTraj给MPC
++                'poly_traj_topic': args.poly_traj_topic,
++                'drone_id': 0,
++                'plan_from_reference': bool(args.plan_from_reference),   # 从参考状态规划？位置控制器: True, 神经网络直接控制: False
++                'selection_mode': args.selection_mode,
++                'objectness_threshold': args.objectness_threshold,
++                'verbose': bool(args.verbose),               # 打印耗时？
++                'visualize': bool(args.visualize)               # 可视化所有轨迹？(实飞改为False节省计算)
+                 }
+     YopoNet(settings, weight)

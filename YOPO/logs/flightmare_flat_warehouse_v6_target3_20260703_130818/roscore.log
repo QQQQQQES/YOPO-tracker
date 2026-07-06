@@ -1,0 +1,31 @@
+[31mWARNING: disk usage in log directory [/home/zml/.ros/log] is over 1GB.
+It's recommended that you use the 'rosclean' command.[0m
+... logging to /home/zml/.ros/log/34904e40-769d-11f1-ae5e-f5b1e096a49c/roslaunch-zml-280053.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+]2;roscore
+[1mstarted roslaunch server http://zml:46613/[0m
+ros_comm version 1.17.4
+
+
+SUMMARY
+========
+
+PARAMETERS
+ * /rosdistro: noetic
+ * /rosversion: 1.17.4
+
+NODES
+
+auto-starting new master
+[1mprocess[master]: started with pid [280092][0m
+[1mROS_MASTER_URI=http://zml:11311/[0m
+]2;roscore http://zml:11311/
+[1msetting /run_id to 34904e40-769d-11f1-ae5e-f5b1e096a49c[0m
+[1mprocess[rosout-1]: started with pid [280102][0m
+started core service [/rosout]
+[rosout-1] killing on exit
+[master] killing on exit
+shutting down processing monitor...
+... shutting down processing monitor complete
+[1mdone[0m

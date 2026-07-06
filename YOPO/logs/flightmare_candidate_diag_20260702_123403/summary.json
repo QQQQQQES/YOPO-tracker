@@ -1,0 +1,29 @@
+{
+  "csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_candidate_diag_20260702_123403/candidate_actions.csv",
+  "selected": {
+    "score": 11,
+    "objectness": 7,
+    "paper": 7
+  },
+  "requested_selection_mode": "paper",
+  "requested_action": 7,
+  "requested_reason": "objectness_filter_min_score",
+  "max_objectness": 0.9755925536155701,
+  "min_score": 2.237161874771118,
+  "valid_objectness_count": 1,
+  "odom_world": [
+    0.0,
+    0.0,
+    2.0079999128845896
+  ],
+  "goal_world": [
+    2.0,
+    0.0,
+    2.0
+  ],
+  "target_world": [
+    2.0,
+    0.0,
+    0.3937999904155731
+  ]
+}

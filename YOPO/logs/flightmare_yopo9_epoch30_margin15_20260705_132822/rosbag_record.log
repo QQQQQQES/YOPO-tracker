@@ -1,0 +1,8 @@
+[INFO] [1783229353.697658704]: Subscribing to /flightmare/yopo/debug
+[INFO] [1783229353.698784984]: Subscribing to /flightmare/yopo/depth
+[INFO] [1783229353.699441389]: Subscribing to /flightmare/yopo/rgb
+[INFO] [1783229353.700075625]: Subscribing to /flightmare/yopo/target_world
+[INFO] [1783229353.700706090]: Subscribing to /yopo_net/tracking_debug
+[INFO] [1783229353.701325576]: Subscribing to /yopo_runtime_test/sim/odom
+[INFO] [1783229353.702178103]: Subscribing to /yopo_runtime_test/so3_control/pos_cmd
+[INFO] [1783229353.703902188]: Recording to 'epoch30_margin15_closed_loop.bag'.

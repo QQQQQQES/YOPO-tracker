@@ -1,0 +1,10 @@
+YOPO bridge: constructor begin
+[INFO] [1783053809.581123855]: YOPO Flightmare tracking bridge: loading params
+YOPO bridge: registering ROS pubs/subs
+YOPO bridge: setting up Flightmare objects
+[INFO] [1783053809.590609145]: YOPO Flightmare tracking bridge: setting up objects
+YOPO bridge: creating UnityBridge
+[INFO] [1783053809.593670247]: YOPO Flightmare tracking bridge: creating UnityBridge
+[UnityBridge]  Initializing ZMQ connection!
+terminate called after throwing an instance of 'zmqpp::zmq_internal_exception'
+  what():  Address already in use

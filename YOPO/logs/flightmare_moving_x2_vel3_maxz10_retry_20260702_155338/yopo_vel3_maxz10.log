@@ -1,0 +1,16 @@
+tensorrt not found.
+load weight from: /mnt/nvme0n1p5/YOPO/YOPO/saved/YOPO_8/epoch48.pth
+[INFO] [1782978841.440420]: Using PositionCommand from ros:quadrotor_msgs.msg (md5=4712f0609ca29a79af79a35ca3e3967a)
+---------- Param --------
+| max speed    =    3.0 |
+| max accel    =    1.5 |
+| traj time    =    3.3 |
+| max radio    =   10.0 |
+-------------------------
+[WARN] [1782978845.687304]: Warn: Processing time 390.58 ms exceeds 33.33 ms, may cause message lag!
+[34mCurrent Time Consuming:[0m depth-interpolation: [32m167.62 ms[0m; data-prepare: [32m35.97 ms[0m; network-inference: [32m159.16 ms[0m; post-process: [32m27.83 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m167.62 ms[0m; data-prepare: [32m35.97 ms[0m; network-inference: [32m159.16 ms[0m; post-process: [32m27.83 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[WARN] [1782978846.038775]: Warn: Processing time 70.91 ms exceeds 33.33 ms, may cause message lag!
+[34mCurrent Time Consuming:[0m depth-interpolation: [32m0.17 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m11.31 ms[0m; post-process: [32m58.97 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m83.90 ms[0m; data-prepare: [32m18.21 ms[0m; network-inference: [32m85.23 ms[0m; post-process: [32m43.40 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+YOPO Net Node Ready!

@@ -1,16 +1,31 @@
+# IDE
 .idea/
 
+# Controller catkin workspace
 Controller/devel/
 Controller/build/
 Controller/.catkin_workspace
 
+# Simulator catkin workspace
 Simulator/devel/
 Simulator/build/
 Simulator/logs/
 Simulator/.catkin_tools/
 
-YOPO/saved/*
+# YOPO saved models
+YOPO/saved/
+YOPO/run_logs/
+
+# Dataset / simulation data
 dataset/
 yopo_sim/
 
-!YOPO/saved/YOPO_1/
+# rosbag / recording files
+bag/
+*.bag
+*.db3
+*.mcap
+
+# docs
+docs/
+Docs/

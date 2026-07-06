@@ -1,5 +1,6 @@
 import os
 import glob
+import json
 import numpy as np
 import torch as th
 import torch.nn as nn
@@ -7,6 +8,11 @@ import torch.nn.functional as F
 import open3d as o3d
 from scipy.ndimage import distance_transform_edt
 from config.config import cfg
+from config.dataset_utils import (
+    read_sorted_numeric_pointclouds,
+    resolve_dataset_paths,
+    resolve_ply_map_entries,
+)
 
 
 class SafetyLoss(nn.Module):
@@ -25,14 +31,14 @@ class SafetyLoss(nn.Module):
         self.time_integral = True
 
         # SDF
-        self.voxel_size = 0.2
+        self.voxel_size = float(cfg.get("safety_voxel_size", 0.2))
         self.min_bounds = None  # shape: (N, 3)
         self.max_bounds = None  # shape: (N, 3)
         self.sdf_shapes = None  # shape: (N, 3)
         print("Building ESDF map...")
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        data_dir = os.path.join(base_dir, "../", cfg["dataset_path"])
-        self.sdf_maps = self.get_sdf_from_ply(data_dir)
+        data_dirs = resolve_dataset_paths(base_dir)
+        self.sdf_maps = self.get_sdf_from_ply(data_dirs)
         print("Map built!")
 
     def forward(self, Df, Dp, map_id):
@@ -188,44 +194,46 @@ class SafetyLoss(nn.Module):
         local_shape = max_indices - min_indices
         return sdf_maps, local_origin, local_shape
 
-    def get_sdf_from_ply(self, path):
-        sorted_files = self.read_sorted_ply_files(path)
-        sdf_maps = []
-        min_bounds, max_bounds, sdf_shapes = [], [], []
+    def get_sdf_from_ply(self, paths):
+        if isinstance(paths, str):
+            paths = [paths]
 
-        # First pass to get all sdf_maps and record shape
-        for file in sorted_files:
-            pcd = o3d.io.read_point_cloud(file)
-            min_bound = np.array(pcd.get_min_bound()) - self.map_expand_min
-            max_bound = np.array(pcd.get_max_bound()) + self.map_expand_max
-            points = np.asarray(pcd.points)
-            print(f"    {os.path.basename(file)}: x=({min_bound[0] + self.map_expand_min[0]:.2f}, {max_bound[0] - self.map_expand_max[0]:.2f}), "
-                  f"y=({min_bound[1] + self.map_expand_min[1]:.2f}, {max_bound[1] - self.map_expand_max[1]:.2f}), "
-                  f"z=({min_bound[2] + self.map_expand_min[2]:.2f}, {max_bound[2] - self.map_expand_max[2]:.2f})")
+        map_entries = []
+        map_id_offset = 0
+        for path in paths:
+            local_entries = self.resolve_ply_map_entries(path)
+            if not local_entries:
+                raise FileNotFoundError(
+                    f"No pointcloud-<scene_id>.ply or metadata-mapped pointcloud found in {path}"
+                )
+            for local_scene_id, file in local_entries:
+                map_entries.append((map_id_offset + int(local_scene_id), file, path))
+            map_id_offset += len(local_entries)
 
-            sdf_shape = np.ceil((max_bound - min_bound) / self.voxel_size).astype(int)
-            voxel_indices = ((points - min_bound) / self.voxel_size).astype(int)
+        if not map_entries:
+            raise FileNotFoundError(
+                f"No pointcloud-<scene_id>.ply or metadata-mapped pointcloud found in {paths}"
+            )
+        map_entries.sort(key=lambda x: x[0])
+        scene_ids = [scene_id for scene_id, _, _ in map_entries]
+        expected_ids = list(range(len(map_entries)))
+        if scene_ids != expected_ids:
+            raise ValueError(
+                f"Resolved map ids must be contiguous from 0, got {scene_ids}; "
+                "check dataset scene ids and pointcloud metadata."
+            )
 
-            valid_mask = np.all((voxel_indices >= 0) & (voxel_indices < sdf_shape), axis=1)
-            voxel_indices = voxel_indices[valid_mask]
-
-            occupancy = np.zeros(sdf_shape, dtype=np.uint8)
-            occupancy[tuple(voxel_indices.T)] = 1
-
-            obstacle_mask = occupancy == 1
-            free_mask = occupancy == 0
-
-            dist_to_obstacle = distance_transform_edt(free_mask) * self.voxel_size
-            dist_inside_obstacle = distance_transform_edt(obstacle_mask) * self.voxel_size
-
-            dist_to_obstacle[obstacle_mask] = -dist_inside_obstacle[obstacle_mask]
-
-            sdf_tensor = th.from_numpy(dist_to_obstacle).float().unsqueeze(0).unsqueeze(0).permute(0, 1, 4, 3, 2).to(self.device)  # (1, 1, D, H, W)
-
+        sdf_cache = {}
+        sdf_maps, min_bounds, max_bounds, sdf_shapes = [], [], [], []
+        for scene_id, file, path in map_entries:
+            if file not in sdf_cache:
+                sdf_cache[file] = self.build_sdf_from_ply(file)
+            sdf_tensor, min_bound, max_bound, sdf_shape = sdf_cache[file]
             sdf_maps.append(sdf_tensor)
-            sdf_shapes.append(sdf_tensor.shape[-3:][::-1])  # D, H, W -> X, Y, Z
+            sdf_shapes.append(sdf_shape)
             min_bounds.append(min_bound)
             max_bounds.append(max_bound)
+            print(f"    scene_id={scene_id}: {os.path.basename(file)} ({os.path.basename(path)})")
 
         # Padding 所有 sdf_map 到最大尺寸, 以便堆积到batch并行处理
         # max_shape = np.max(np.stack(sdf_shapes), axis=0)
@@ -238,18 +246,41 @@ class SafetyLoss(nn.Module):
         self.sdf_shapes = th.tensor(np.array(sdf_shapes), device=self.device).float()  # shape: (N, 3) order: (X, Y, Z)
         return sdf_maps  # shape: (N, 1, D, H, W)
 
+    def build_sdf_from_ply(self, file):
+        pcd = o3d.io.read_point_cloud(file)
+        min_bound = np.array(pcd.get_min_bound()) - self.map_expand_min
+        max_bound = np.array(pcd.get_max_bound()) + self.map_expand_max
+        points = np.asarray(pcd.points)
+        print(f"    build {os.path.basename(file)}: x=({min_bound[0] + self.map_expand_min[0]:.2f}, {max_bound[0] - self.map_expand_max[0]:.2f}), "
+              f"y=({min_bound[1] + self.map_expand_min[1]:.2f}, {max_bound[1] - self.map_expand_max[1]:.2f}), "
+              f"z=({min_bound[2] + self.map_expand_min[2]:.2f}, {max_bound[2] - self.map_expand_max[2]:.2f})")
+
+        sdf_shape = np.ceil((max_bound - min_bound) / self.voxel_size).astype(int)
+        voxel_indices = ((points - min_bound) / self.voxel_size).astype(int)
+
+        valid_mask = np.all((voxel_indices >= 0) & (voxel_indices < sdf_shape), axis=1)
+        voxel_indices = voxel_indices[valid_mask]
+
+        occupancy = np.zeros(sdf_shape, dtype=np.uint8)
+        occupancy[tuple(voxel_indices.T)] = 1
+
+        obstacle_mask = occupancy == 1
+        free_mask = occupancy == 0
+
+        dist_to_obstacle = distance_transform_edt(free_mask) * self.voxel_size
+        dist_inside_obstacle = distance_transform_edt(obstacle_mask) * self.voxel_size
+
+        dist_to_obstacle[obstacle_mask] = -dist_inside_obstacle[obstacle_mask]
+
+        sdf_tensor = th.from_numpy(dist_to_obstacle).float().unsqueeze(0).unsqueeze(0).permute(0, 1, 4, 3, 2).to(self.device)  # (1, 1, D, H, W)
+        sdf_shape_tensor_order = sdf_tensor.shape[-3:][::-1]  # D, H, W -> X, Y, Z
+        return sdf_tensor, min_bound, max_bound, sdf_shape_tensor_order
+
+    def resolve_ply_map_entries(self, path):
+        return resolve_ply_map_entries(path)
+
     def read_sorted_ply_files(self, path):
-        # 匹配所有以 pointcloud- 开头并以 .ply 结尾的文件, 并排序
-        ply_files = glob.glob(os.path.join(path, 'pointcloud-*.ply'))
-
-        def extract_index(filename):
-            base = os.path.basename(filename)
-            number_part = base.replace('pointcloud-', '').replace('.ply', '')
-            return int(number_part)
-
-        sorted_ply_files = sorted(ply_files, key=extract_index)
-
-        return sorted_ply_files
+        return read_sorted_numeric_pointclouds(path)
 
     def pad_sdf_to_shape(self, sdf_map, target_shape):
         """

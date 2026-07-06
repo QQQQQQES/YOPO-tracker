@@ -1,0 +1,69 @@
+{
+  "duration_s": 30.0,
+  "odom_samples": 3006,
+  "debug_samples": 803,
+  "odom_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_truth_hoverstart_20260702_125558/monitor_odom.csv",
+  "debug_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_truth_hoverstart_20260702_125558/monitor_debug.csv",
+  "start_pos": [
+    0.0,
+    0.0,
+    2.008442848054949
+  ],
+  "end_pos": [
+    1.704769512787166,
+    -5.101915538348213,
+    2.300125568597388
+  ],
+  "target": [
+    2.0,
+    0.0,
+    2.0
+  ],
+  "start_dist3": 2.0000178203414287,
+  "min_dist3": 2.0000027164744205,
+  "end_dist3": 5.119255664444273,
+  "start_dist_xy": 2.0,
+  "min_dist_xy": 1.999994686078083,
+  "end_dist_xy": 5.1104503912100405,
+  "max_z": 2.378739875392167,
+  "min_z": 1.9976788218775552,
+  "target_source_counts": {
+    "truth": 803
+  },
+  "selection_reason_counts": {
+    "target_distance_terminal": 803
+  },
+  "selected_action_counts": {
+    "7": 59,
+    "4": 2,
+    "9": 2,
+    "0": 26,
+    "5": 101,
+    "6": 238,
+    "2": 57,
+    "1": 295,
+    "13": 7,
+    "14": 6,
+    "12": 8,
+    "8": 2
+  },
+  "mean_max_objectness": 0.8791450185226891,
+  "detected_ratio": 0.925280199252802,
+  "mean_selected_terminal_progress": 2.6362503512723703,
+  "mean_selected_terminal_distance": 2.9719213171192767,
+  "last_debug": {
+    "t": 30.162250518798828,
+    "selected_action": 1,
+    "selection_reason": "target_distance_terminal",
+    "target_source": "truth",
+    "min_score": 0.9576982259750366,
+    "selected_score": 1.0525126457214355,
+    "max_objectness": 0.2508453130722046,
+    "selected_objectness": 0.2508453130722046,
+    "selected_terminal_distance": 2.523066899406273,
+    "selected_terminal_progress": 2.8780160520952105,
+    "selected_terminal_lateral_error": 1.1491783957705102,
+    "detected": false,
+    "confidence": 0.2508453130722046
+  }
+}

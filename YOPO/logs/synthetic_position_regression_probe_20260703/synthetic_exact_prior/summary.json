@@ -1,0 +1,28 @@
+{
+  "checkpoint": "/mnt/nvme0n1p5/YOPO/YOPO/saved/YOPO_8/epoch48.pth",
+  "image_mode": "depth_blob",
+  "prior": "exact",
+  "samples": 25,
+  "intrinsics": {
+    "width": 160,
+    "height": 90,
+    "fx": 80.00000000000001,
+    "fy": 77.94228634059948,
+    "cx": 79.5,
+    "cy": 44.5
+  },
+  "top1_grid_acc": 0.92,
+  "true_cell_error_m": {
+    "mean": 2.2793677869439124,
+    "median": 1.846427321434021,
+    "p95": 5.411625003814697,
+    "max": 5.493363380432129
+  },
+  "top1_error_m": {
+    "mean": 2.269557892382145,
+    "median": 1.846427321434021,
+    "p95": 5.335844230651856,
+    "max": 5.493363380432129
+  },
+  "csv": "run_logs/synthetic_position_regression_probe_20260703/synthetic_exact_prior/synthetic_target_errors.csv"
+}

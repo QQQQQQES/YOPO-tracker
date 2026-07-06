@@ -1,0 +1,17 @@
+header: 
+  seq: 0
+  stamp: 
+    secs: 1782980970
+    nsecs:  17216237
+  frame_id: "world"
+pose: 
+  position: 
+    x: 2.0
+    y: 0.0
+    z: 0.3937999904155731
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+---

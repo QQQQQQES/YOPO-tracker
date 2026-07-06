@@ -1,0 +1,81 @@
+tensorrt not found.
+load weight from: /mnt/nvme0n1p5/YOPO/YOPO/saved/YOPO_9/epoch30.pth
+[INFO] [1783226202.500992]: Using PositionCommand from ros:quadrotor_msgs.msg (md5=4712f0609ca29a79af79a35ca3e3967a)
+---------- Param --------
+| max speed    =    3.0 |
+| max accel    =    1.5 |
+| traj time    =    3.3 |
+| max radio    =   10.0 |
+-------------------------
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.75 ms[0m; data-prepare: [32m1.17 ms[0m; network-inference: [32m23.53 ms[0m; post-process: [32m2.03 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+YOPO Net Node Ready!
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.53 ms[0m; network-inference: [32m2.82 ms[0m; post-process: [32m0.94 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.38 ms[0m; data-prepare: [32m0.52 ms[0m; network-inference: [32m2.60 ms[0m; post-process: [32m0.83 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.39 ms[0m; data-prepare: [32m0.51 ms[0m; network-inference: [32m2.44 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.38 ms[0m; data-prepare: [32m0.51 ms[0m; network-inference: [32m2.37 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.37 ms[0m; data-prepare: [32m0.51 ms[0m; network-inference: [32m2.42 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.36 ms[0m; data-prepare: [32m0.51 ms[0m; network-inference: [32m2.36 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.36 ms[0m; data-prepare: [32m0.51 ms[0m; network-inference: [32m2.36 ms[0m; post-process: [32m0.91 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.36 ms[0m; data-prepare: [32m0.51 ms[0m; network-inference: [32m2.31 ms[0m; post-process: [32m0.91 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.36 ms[0m; data-prepare: [32m0.50 ms[0m; network-inference: [32m2.29 ms[0m; post-process: [32m0.90 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.39 ms[0m; data-prepare: [32m0.50 ms[0m; network-inference: [32m2.26 ms[0m; post-process: [32m0.90 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.38 ms[0m; data-prepare: [32m0.50 ms[0m; network-inference: [32m2.23 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.37 ms[0m; data-prepare: [32m0.50 ms[0m; network-inference: [32m2.20 ms[0m; post-process: [32m0.91 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.37 ms[0m; data-prepare: [32m0.50 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.93 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.37 ms[0m; data-prepare: [32m0.50 ms[0m; network-inference: [32m2.18 ms[0m; post-process: [32m0.94 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.38 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.16 ms[0m; post-process: [32m0.92 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.37 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.15 ms[0m; post-process: [32m0.92 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.37 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.15 ms[0m; post-process: [32m0.91 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.37 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.14 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.36 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.13 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.36 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.12 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.36 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.12 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.35 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.11 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.36 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.11 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.36 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.10 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.36 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.09 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.35 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.10 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.35 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.09 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.35 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.09 ms[0m; post-process: [32m0.90 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.35 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.09 ms[0m; post-process: [32m0.91 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.35 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.09 ms[0m; post-process: [32m0.90 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.35 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.09 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.34 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.08 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.34 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.08 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.34 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.08 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.34 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.07 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.34 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.07 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.34 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.07 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.34 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.07 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.34 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.07 ms[0m; post-process: [32m0.86 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.34 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.07 ms[0m; post-process: [32m0.86 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.34 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.07 ms[0m; post-process: [32m0.86 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.34 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.07 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.49 ms[0m; network-inference: [32m2.08 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.08 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.08 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.08 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.07 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.07 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.06 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.06 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.06 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.06 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.06 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.05 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.05 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.33 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.05 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.05 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.05 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.05 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.04 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.04 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.05 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.04 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.04 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.04 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.04 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.04 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.04 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.04 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.32 ms[0m; data-prepare: [32m0.48 ms[0m; network-inference: [32m2.04 ms[0m; post-process: [32m0.87 ms[0m; visualize-trajectory: [32m0.01 ms[0m

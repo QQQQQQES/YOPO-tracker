@@ -1,0 +1,59 @@
+# Offline rosbag image-detection/debug config.
+# Paper-style inference chain:
+# objectness filter -> EKF consistency gate -> target-space NMS -> min score.
+
+use_tensorrt: 0
+trial: 17
+epoch: 5
+weight: /mnt/nvme0n1p5/YOPO/YOPO/saved/YOPO_17/epoch5.pth
+
+goal: [0.0, 0.0, 2.0]
+velocity: 3.0
+pitch_angle_deg: 0.0
+target_camera_Rcl: [0.00015, -0.9997, -0.024483, -0.028412, 0.024469, -0.999297, 0.999596, 0.000845, -0.0284]
+target_camera_Pcl: [0.03269, -0.043221, -0.080256]
+
+odom_topic: /LIVO2/imu_propagate
+depth_topic: /camera/aligned_depth_to_color/image_raw
+rgb_topic: /camera/color/image_raw
+rgb_timeout: 0.2
+
+# Keep this disabled for offline bag inspection so YOPO does not drive a live sim/controller.
+ctrl_topic: /yopo_runtime_test/so3_control/pos_cmd
+publish_pos_cmd: 0
+publish_poly_traj: 0
+poly_traj_topic: /planning_cmd/poly_traj
+plan_from_reference: 0
+
+selection_mode: paper
+objectness_threshold: 0.5
+target_selection_score_margin: -1  # only used by target_distance; paper mode ignores this
+target_consistency_gate: 3.0
+target_nms_distance: 1.0
+target_timeout: 1.0
+
+target_truth_topic: ""
+target_truth_timeout: 1.0
+target_truth_follow_z: null
+use_truth_target_in_paper: 0
+
+no_target_behavior: hold
+no_target_timeout: 0.5
+lost_target_progress_enabled: 1
+lost_target_progress_timeout: 1.2
+lost_target_progress_weight: 0.05
+lost_target_progress_cap: 8.0
+lost_target_progress_xy_only: 1
+
+target_process_noise: 2.0
+target_measurement_noise: 0.5
+use_target_yaw: 1
+use_target_prior: 1
+disable_arrive_check: 1
+
+planning_min_z: 0.2
+planning_max_z: 3.0
+planning_max_abs_delta_z: 0.8
+
+verbose: 0
+visualize: 1

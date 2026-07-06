@@ -1,0 +1,57 @@
+{
+  "bag": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_truth_v6_target3_20260703_124609/flightmare_truth_v6_target3.bag",
+  "truth_topic": "/flightmare/yopo/target_world",
+  "pred_topic": "/yopo_net/target_world",
+  "debug_topic": "/yopo_net/tracking_debug",
+  "max_dt": 0.1,
+  "warmup": 2.0,
+  "truth_samples": 738,
+  "pred_samples": 738,
+  "debug_samples": 738,
+  "paired_samples": 738,
+  "detected_ratio": 1.0,
+  "confidence": {
+    "count": 738,
+    "mean": 0.9999865503492071,
+    "median": 0.9999996423721313,
+    "p95": 1.0,
+    "max": 1.0
+  },
+  "max_objectness": {
+    "count": 738,
+    "mean": 0.9999865503492071,
+    "median": 0.9999996423721313,
+    "p95": 1.0,
+    "max": 1.0
+  },
+  "err_3d_m": {
+    "count": 738,
+    "mean": 41.95772911364615,
+    "median": 41.59676611040494,
+    "p95": 47.16168809045733,
+    "max": 47.66701025527233
+  },
+  "err_xy_m": {
+    "count": 738,
+    "mean": 41.88679646438477,
+    "median": 41.5351352907716,
+    "p95": 47.09602479942316,
+    "max": 47.63684643800261
+  },
+  "err_z_abs_m": {
+    "count": 738,
+    "mean": 2.3190350853130215,
+    "median": 2.3265657991771116,
+    "p95": 3.5786818594207297,
+    "max": 4.693718222169812
+  },
+  "dt_abs_s": {
+    "count": 738,
+    "mean": 0.0,
+    "median": 0.0,
+    "p95": 0.0,
+    "max": 0.0
+  },
+  "pair_csv": "run_logs/flightmare_truth_v6_target3_20260703_124609/target_regression_pairs.csv",
+  "debug_csv": "run_logs/flightmare_truth_v6_target3_20260703_124609/target_detection_debug.csv"
+}

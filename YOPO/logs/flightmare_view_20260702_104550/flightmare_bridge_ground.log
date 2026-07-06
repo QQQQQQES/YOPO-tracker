@@ -1,0 +1,13 @@
+YOPO bridge: constructor begin
+[INFO] [1782965309.264052558]: YOPO Flightmare tracking bridge: loading params
+YOPO bridge: registering ROS pubs/subs
+YOPO bridge: setting up Flightmare objects
+[INFO] [1782965309.270659967]: YOPO Flightmare tracking bridge: setting up objects
+YOPO bridge: creating UnityBridge
+[INFO] [1782965309.270762637]: YOPO Flightmare tracking bridge: creating UnityBridge
+[UnityBridge]  Initializing ZMQ connection!
+[UnityBridge]  Initializing ZMQ connections done!
+YOPO bridge: connecting Unity scene_id=2
+[INFO] [1782965309.271060094]: YOPO Flightmare tracking bridge: connecting Unity scene_id=2
+[UnityBridge]  Trying to Connect Unity.
+[......................................................................................................................................................................................................................................................................................................................................[UnityBridge]  Flightmare Unity is connected.

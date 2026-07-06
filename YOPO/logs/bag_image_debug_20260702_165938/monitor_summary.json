@@ -1,0 +1,65 @@
+{
+  "duration_s": 45.0,
+  "odom_samples": 654,
+  "cmd_samples": 0,
+  "debug_samples": 40,
+  "odom_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/bag_image_debug_20260702_165938/monitor_odom.csv",
+  "cmd_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/bag_image_debug_20260702_165938/monitor_cmd.csv",
+  "debug_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/bag_image_debug_20260702_165938/monitor_debug.csv",
+  "start_pos": [
+    33.9675006375901,
+    -17.735392936748408,
+    1.5003458725332994
+  ],
+  "end_pos": [
+    36.207350795013035,
+    -23.746860714188447,
+    1.277114823899626
+  ],
+  "target": [
+    2.0,
+    0.0,
+    0.0
+  ],
+  "start_dist3": 36.58847219237798,
+  "min_dist3": 36.58847219237798,
+  "end_dist3": 41.66158019645402,
+  "start_dist_xy": 36.557697679629506,
+  "min_dist_xy": 36.557697679629506,
+  "end_dist_xy": 41.64200093886154,
+  "max_z": 1.5151046207439867,
+  "min_z": 1.2714165198781855,
+  "target_source_counts": {
+    "detector": 40
+  },
+  "selection_reason_counts": {
+    "target_distance_no_recent_target": 40
+  },
+  "selected_action_counts": {
+    "5": 19,
+    "3": 9,
+    "4": 3,
+    "8": 6,
+    "0": 2,
+    "6": 1
+  },
+  "mean_max_objectness": 1.5797703680001106e-07,
+  "detected_ratio": 0.0,
+  "mean_selected_terminal_progress": null,
+  "mean_selected_terminal_distance": null,
+  "last_debug": {
+    "t": 4.898134231567383,
+    "selected_action": 5,
+    "selection_reason": "target_distance_no_recent_target",
+    "target_source": "detector",
+    "min_score": 2.2430388927459717,
+    "selected_score": 2.2430388927459717,
+    "max_objectness": 3.923846136899556e-09,
+    "selected_objectness": 7.599992277217485e-14,
+    "selected_terminal_distance": null,
+    "selected_terminal_progress": null,
+    "selected_terminal_lateral_error": null,
+    "detected": false,
+    "confidence": 3.923846136899556e-09
+  }
+}

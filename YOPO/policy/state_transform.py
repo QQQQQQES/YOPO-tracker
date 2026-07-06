@@ -22,9 +22,11 @@ class StateTransform:
 
         # 获取 lattice angle 和 rotation (.flip: 由于lattice和grid的顺序相反)
         yaw, pitch = self.lattice_primitive.getAngleLattice()  # [15]
+        yaw = yaw.to(endstate_pred.device)
+        pitch = pitch.to(endstate_pred.device)
         yaw = yaw.flip(0)[None, :].expand(B, -1)  # [B, 15]
         pitch = pitch.flip(0)[None, :].expand(B, -1)  # [B, 15]
-        Rbp = self.lattice_primitive.getRotation().flip(0)  # [15, 3, 3]
+        Rbp = self.lattice_primitive.getRotation().to(endstate_pred.device).flip(0)  # [15, 3, 3]
         Rbp = Rbp[None, :, :, :].expand(B, -1, -1, -1)  # [B, 15, 3, 3]
 
         delta_yaw = endstate_pred[:, :, 0] * self.lattice_primitive.yaw_diff  # [B, 15]
@@ -60,6 +62,9 @@ class StateTransform:
         delta_pitch = endstate_pred[:, 1] * self.lattice_primitive.pitch_diff
         radio = (endstate_pred[:, 2] + 1.0) * self.lattice_primitive.radio_range
 
+        if isinstance(lattice_id, torch.Tensor):
+            lattice_id = lattice_id.to(self.lattice_primitive.lattice_angle_node.device)
+
         yaw, pitch = self.lattice_primitive.getAngleLattice(lattice_id)
         yaw, pitch = yaw.cpu().numpy(), pitch.cpu().numpy()
         endstate_x = np.cos(pitch + delta_pitch) * np.cos(yaw + delta_yaw) * radio
@@ -77,29 +82,71 @@ class StateTransform:
         return np.concatenate((endstate_p, endstate_vb, endstate_ab), axis=1)
 
 
+    def decode_target(self, target_raw: torch.Tensor) -> torch.Tensor:
+        """
+            Decode YOPOv2 target output to image-space [u, v, depth].
+            target_raw: [batch; 3; primitive_v; primitive_h]
+            return: [batch; 3; primitive_v; primitive_h]
+        """
+        B, _, V, H = target_raw.shape
+        device, dtype = target_raw.device, target_raw.dtype
+        grid_w = float(cfg["image_width"]) / float(self.lattice_primitive.horizon_num)
+        grid_h = float(cfg["image_height"]) / float(self.lattice_primitive.vertical_num)
+        max_depth = float(cfg.get("max_depth", 20.0))
+
+        rows = torch.arange(V, device=device, dtype=dtype).view(1, 1, V, 1)
+        cols = torch.arange(H, device=device, dtype=dtype).view(1, 1, 1, H)
+        uv_local = torch.sigmoid(target_raw[:, 0:2])
+        depth = torch.sigmoid(target_raw[:, 2:3]) * max_depth
+        u = (cols + uv_local[:, 0:1]) * grid_w
+        v = (rows + uv_local[:, 1:2]) * grid_h
+        return torch.cat([u.expand(B, 1, V, H), v.expand(B, 1, V, H), depth], dim=1)
+
+    def decode_target_cpu(self, target_raw: np.ndarray) -> np.ndarray:
+        """
+            Numpy target decoder used during ROS inference.
+            target_raw: [N, 3] in image-grid order.
+            return: [N, 3] [u, v, depth].
+        """
+        target_raw = np.asarray(target_raw, dtype=np.float32)
+        grid_w = float(cfg["image_width"]) / float(self.lattice_primitive.horizon_num)
+        grid_h = float(cfg["image_height"]) / float(self.lattice_primitive.vertical_num)
+        max_depth = float(cfg.get("max_depth", 20.0))
+        ids = np.arange(target_raw.shape[0], dtype=np.int64)
+        rows = ids // self.lattice_primitive.horizon_num
+        cols = ids % self.lattice_primitive.horizon_num
+        sigmoid = 1.0 / (1.0 + np.exp(-target_raw))
+        u = (cols.astype(np.float32) + sigmoid[:, 0]) * grid_w
+        v = (rows.astype(np.float32) + sigmoid[:, 1]) * grid_h
+        depth = sigmoid[:, 2] * max_depth
+        return np.stack((u, v, depth), axis=1)
+
+
     def prepare_input(self, obs):
         """
             Transform the observation to the primitive frame (Body frame → Primitive frame → Body frame).
-            obs: [batch; vx, vy, yz, ax, ay, az, gx, gy, gz] in body frame
-            :return [batch; vx, vy, yz, ax, ay, az, gx, gy, gz; primitive_v; primitive_h] in primitive frame
+            obs: [batch; vx, vy, vz, ax, ay, az] in body frame
+            :return [batch; vx, vy, vz, ax, ay, az; primitive_v; primitive_h] in primitive frame
         """
         B, N = obs.shape[0], self.lattice_primitive.traj_num
+        if obs.shape[1] != 6:
+            raise ValueError(f"YOPOv2-Tracker uses 6D state input [v_xyz, a_xyz], got shape {tuple(obs.shape)}")
 
         # 获取所有 Rbp 并倒序排列 (由于lattice和grid的顺序相反)
-        Rbp_all = self.lattice_primitive.getRotation().flip(0)  # shape: [N, 3, 3]
+        Rbp_all = self.lattice_primitive.getRotation().to(obs.device).flip(0)  # shape: [N, 3, 3]
 
-        obs = obs.view(B, 3, 3)  # [B, 3, 3]
+        obs = obs.view(B, 2, 3)  # [B, 2, 3]
 
         # 扩展 obs 和 Rbp 到 [B, N, 3, 3]
-        obs_exp = obs[:, None, :, :].expand(B, N, 3, 3)
+        obs_exp = obs[:, None, :, :].expand(B, N, 2, 3)
         Rbp_exp = Rbp_all[None, :, :, :].expand(B, N, 3, 3)
 
         # 执行批量坐标变换
-        transformed = torch.matmul(obs_exp, Rbp_exp)  # [B, N, 3, 3]
+        transformed = torch.matmul(obs_exp, Rbp_exp)  # [B, N, 2, 3]
 
-        transformed_flat = transformed.view(B, N, 9)  # [B, N, 9]
-        out = transformed_flat.permute(0, 2, 1).contiguous()  # [B, 9, N]
-        out = out.view(B, 9, self.lattice_primitive.vertical_num, self.lattice_primitive.horizon_num)  # [B, 9, V, H]
+        transformed_flat = transformed.view(B, N, 6)  # [B, N, 6]
+        out = transformed_flat.permute(0, 2, 1).contiguous()  # [B, 6, N]
+        out = out.view(B, 6, self.lattice_primitive.vertical_num, self.lattice_primitive.horizon_num)  # [B, 6, V, H]
         return out
 
     def unnormalize_obs(self, vel_acc):
@@ -107,14 +154,12 @@ class StateTransform:
         vel_acc[:, 3:6] = vel_acc[:, 3:6] * self.lattice_primitive.acc_max
         return vel_acc
 
-    def normalize_obs(self, vel_acc_goal):
-        vel_acc_goal[:, 0:3] = vel_acc_goal[:, 0:3] / self.lattice_primitive.vel_max
-        vel_acc_goal[:, 3:6] = vel_acc_goal[:, 3:6] / self.lattice_primitive.acc_max
-
-        # Clamp the goal direction to unit length
-        goal_norm = vel_acc_goal[:, 6:9].norm(dim=1, keepdim=True)
-        vel_acc_goal[:, 6:9] = vel_acc_goal[:, 6:9] / goal_norm.clamp(min=self.goal_length)
-        return vel_acc_goal
+    def normalize_obs(self, vel_acc):
+        if vel_acc.shape[1] != 6:
+            raise ValueError(f"YOPOv2-Tracker uses 6D state input [v_xyz, a_xyz], got shape {tuple(vel_acc.shape)}")
+        vel_acc[:, 0:3] = vel_acc[:, 0:3] / self.lattice_primitive.vel_max
+        vel_acc[:, 3:6] = vel_acc[:, 3:6] / self.lattice_primitive.acc_max
+        return vel_acc
 
 
 def rotate_body2world(rot_wb, pos_b):

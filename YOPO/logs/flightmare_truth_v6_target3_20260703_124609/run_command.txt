@@ -1,0 +1,5 @@
+uav_velocity=6.0
+target_speed_x=3.0
+monitor_duration=25.0
+truth_topic=/flightmare/yopo/target_world
+prediction_topic=/yopo_net/target_world

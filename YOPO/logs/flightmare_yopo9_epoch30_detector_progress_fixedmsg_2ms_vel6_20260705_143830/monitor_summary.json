@@ -1,0 +1,84 @@
+{
+  "duration_s": 30.0,
+  "odom_samples": 3006,
+  "cmd_samples": 1376,
+  "debug_samples": 822,
+  "odom_csv": "/mnt/nvme0n1p5/YOPO/YOPO/logs/flightmare_yopo9_epoch30_detector_progress_fixedmsg_2ms_vel6_20260705_143830/monitor_odom.csv",
+  "cmd_csv": "/mnt/nvme0n1p5/YOPO/YOPO/logs/flightmare_yopo9_epoch30_detector_progress_fixedmsg_2ms_vel6_20260705_143830/monitor_cmd.csv",
+  "debug_csv": "/mnt/nvme0n1p5/YOPO/YOPO/logs/flightmare_yopo9_epoch30_detector_progress_fixedmsg_2ms_vel6_20260705_143830/monitor_debug.csv",
+  "start_pos": [
+    0.0,
+    0.0,
+    2.007999913574528
+  ],
+  "end_pos": [
+    -8.395681284097272,
+    -5.8799948800695825,
+    1.8687609356486827
+  ],
+  "target": [
+    2.0,
+    0.0,
+    2.0
+  ],
+  "start_dist3": 2.0000159995903033,
+  "min_dist3": 2.000015999586542,
+  "end_dist3": 11.944109545804853,
+  "start_dist_xy": 2.0,
+  "min_dist_xy": 2.0,
+  "end_dist_xy": 11.943388512067035,
+  "max_z": 2.6326305083133112,
+  "min_z": 1.7008474382124634,
+  "start_cmd_pos": [
+    -1.9873815302104242e-05,
+    8.939000119567474e-06,
+    2.008016764182812
+  ],
+  "end_cmd_pos": [
+    -8.436091728333944,
+    -5.8967488266340125,
+    1.8639934968678677
+  ],
+  "max_cmd_z": 2.6325856786164934,
+  "min_cmd_z": 1.7008905744517269,
+  "target_source_counts": {
+    "detector": 822
+  },
+  "selection_reason_counts": {
+    "target_distance_terminal": 819,
+    "no_target_hold": 3
+  },
+  "selected_action_counts": {
+    "7": 55,
+    "9": 280,
+    "14": 4,
+    "13": 1,
+    "4": 379,
+    "8": 54,
+    "1": 6,
+    "5": 15,
+    "0": 3,
+    "6": 17,
+    "3": 7,
+    "12": 1
+  },
+  "mean_max_objectness": 0.9694445277722847,
+  "detected_ratio": 0.9695863746958637,
+  "mean_selected_terminal_progress": 5.569396636830087,
+  "mean_selected_terminal_distance": 4.056867477541954,
+  "last_debug": {
+    "t": 30.16315269470215,
+    "selected_action": 4,
+    "selection_reason": "target_distance_terminal",
+    "target_source": "detector",
+    "min_score": 1.0877373218536377,
+    "selected_score": 1.363432765007019,
+    "max_objectness": 1.0,
+    "selected_objectness": 0.9999985694885254,
+    "selected_terminal_distance": 4.264313139326849,
+    "selected_terminal_progress": 6.829338990183472,
+    "selected_terminal_lateral_error": 2.4069700829287997,
+    "detected": true,
+    "confidence": 1.0
+  }
+}

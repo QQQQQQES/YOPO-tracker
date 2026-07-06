@@ -1,0 +1,33 @@
+subscribed to [/flightmare/yopo/rgb]
+subscribed to [/flightmare/yopo/depth]
+subscribed to [/flightmare/yopo/target_world]
+            topic                rate   min_delta   max_delta   std_dev    window
+=================================================================================
+/flightmare/yopo/rgb            29.95   0.02482     0.0398      0.003147   30    
+/flightmare/yopo/depth          29.95   0.0248      0.03979     0.003117   30    
+/flightmare/yopo/target_world   29.95   0.02478     0.0398      0.003135   30    
+
+            topic                rate   min_delta   max_delta   std_dev    window
+=================================================================================
+/flightmare/yopo/rgb            29.95   0.02482     0.0398      0.002761   60    
+/flightmare/yopo/depth          29.95   0.0248      0.03979     0.002749   60    
+/flightmare/yopo/target_world   29.95   0.02478     0.0398      0.002759   60    
+
+            topic                rate   min_delta   max_delta   std_dev    window
+=================================================================================
+/flightmare/yopo/rgb            29.99   0.02482     0.04123     0.002776   90    
+/flightmare/yopo/depth          29.99   0.0248      0.04147     0.002778   90    
+/flightmare/yopo/target_world   29.99   0.02478     0.04134     0.002776   90    
+
+            topic               rate   min_delta   max_delta   std_dev    window
+================================================================================
+/flightmare/yopo/rgb            30.0   0.02103     0.04482     0.003265   120   
+/flightmare/yopo/depth          30.0   0.02081     0.04486     0.00327    120   
+/flightmare/yopo/target_world   30.0   0.02099     0.04476     0.003269   120   
+
+            topic                rate   min_delta   max_delta   std_dev    window
+=================================================================================
+/flightmare/yopo/rgb            29.89   0.02103     0.0604      0.004171   136   
+/flightmare/yopo/depth          29.89   0.02081     0.06037     0.004176   136   
+/flightmare/yopo/target_world   29.89   0.02099     0.06047     0.004182   136   
+

@@ -1,0 +1,13 @@
+tensorrt not found.
+load weight from: /mnt/nvme0n1p5/YOPO/YOPO/saved/YOPO_8/epoch25.pth
+[INFO] [1782904093.268668]: Using PositionCommand from ros:quadrotor_msgs.msg (md5=4712f0609ca29a79af79a35ca3e3967a)
+---------- Param --------
+| max speed    =    1.0 |
+| max accel    =    0.2 |
+| traj time    =   10.0 |
+| max radio    =   10.0 |
+-------------------------
+[WARN] [1782904093.765621]: Warn: Processing time 37.30 ms exceeds 33.33 ms, may cause message lag!
+[34mCurrent Time Consuming:[0m depth-interpolation: [32m12.69 ms[0m; data-prepare: [32m0.64 ms[0m; network-inference: [32m23.76 ms[0m; post-process: [32m0.21 ms[0m; visualize-trajectory: [32m0.00 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m12.69 ms[0m; data-prepare: [32m0.64 ms[0m; network-inference: [32m23.76 ms[0m; post-process: [32m0.21 ms[0m; visualize-trajectory: [32m0.00 ms[0m
+YOPO Net Node Ready!

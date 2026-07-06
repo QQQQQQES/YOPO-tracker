@@ -1,0 +1,4 @@
+Sim: roslaunch /mnt/nvme0n1p5/YOPO/Controller/src/so3_quadrotor_simulator/launch/simulator_attitude_control_yopov2_runtime.launch init_x:=0 init_y:=0 init_z:=2
+Bridge: roslaunch /mnt/nvme0n1p5/Flightmare_ws/src/flightmare/flightros/launch/camera/yopo_tracking_bridge.launch scene_id:=2 target_size_scale:=2.0 target_manual_control:=true target_cmd_timeout:=0.8 scene_origin_x:=76.0 scene_origin_y:=80.0 scene_origin_z:=0.0 target_x:=4.0 target_y:=0.0 target_z:=0.05 target_lateral_amplitude:=0.0 target_speed_x:=0.0
+YOPO: /mnt/nvme0n1p5/YOPO/YOPO/scripts/run_yopo_runtime_config.sh /mnt/nvme0n1p5/YOPO/YOPO/config/yopo_runtime_flightmare_image.yaml --weight /mnt/nvme0n1p5/YOPO/YOPO/saved/YOPO_22/epoch5.pth --goal 4.0 0.0 2.0 --velocity 3.0 --target_truth_topic /flightmare/yopo/target_world --target_truth_follow_z 2.0 --use_truth_target_in_paper 0
+Target: publish random 2.0 m/s Twist to /flightmare/yopo/target_cmd_vel after YOPO is running

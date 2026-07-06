@@ -1,0 +1,32 @@
+{
+  "duration_s": 15.0,
+  "odom_samples": 1503,
+  "cmd_samples": 0,
+  "debug_samples": 0,
+  "odom_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_moving_x2_vel3_20260702_131411/monitor_odom.csv",
+  "cmd_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_moving_x2_vel3_20260702_131411/monitor_cmd.csv",
+  "debug_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_moving_x2_vel3_20260702_131411/monitor_debug.csv",
+  "start_pos": [
+    0.0,
+    0.0,
+    2.007999913717591
+  ],
+  "end_pos": [
+    0.0,
+    0.0,
+    2.007999913442953
+  ],
+  "target": [
+    2.0,
+    0.0,
+    2.0
+  ],
+  "start_dist3": 2.0000159995908757,
+  "min_dist3": 2.0000159995862457,
+  "end_dist3": 2.000015999589777,
+  "start_dist_xy": 2.0,
+  "min_dist_xy": 2.0,
+  "end_dist_xy": 2.0,
+  "max_z": 2.0079999140347136,
+  "min_z": 2.007999912560076
+}

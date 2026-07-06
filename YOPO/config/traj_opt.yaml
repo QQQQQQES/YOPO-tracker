@@ -1,52 +1,98 @@
-# IMPORTANT: velocity in testing (modifiable)
-velocity: 6.0
+# YOPO 训练/模型结构配置。Gazebo/ROS 运行时参数请改 yopo_gazebo_runtime.yaml。
+velocity: 6.0  # 旧测试默认速度；Gazebo 运行请改 runtime_velocity
+max_yaw_rate_deg_s: 90.0  # ROS 推理 yaw 角速度上限，单位 deg/s；90 等价于原默认 0.5*pi rad/s
 
-# IMPORTANT: vel_max and acc_max in training
-# not the actual values in testing, ensure consistency between testing and training, please refer to ../policy/primitive.py
-vel_max_train: 6.0
-acc_max_train: 6.0
+task: tracking  # 网络任务类型：tracking 输出轨迹、score、目标检测头
+image_channels: 4  # 网络输入通道数：RGBD 为 4，纯深度为 1
+output_dim: 14  # 网络输出维度；tracking 模式当前为 14
+observation_dim: 6  # YOPOv2-Tracker 论文式状态输入：速度 xyz + 加速度 xyz，不输入目标/goal 向量
+max_depth: 20.0  # 深度图最大归一化距离，单位 m
 
-# IMPORTANT: weight of costs for unit speed (can be visualized in tensorboard)
-wg: 0.15   # guidance     (approaching the goal)
-ws: 10.0   # smoothness   (smaller jerk)
-wa: 1.0    # acceleration (smaller acceleration)
-wc: 1.0    # collision    (distance to obstacle)
+vel_max_train: 6.0  # 训练时 primitive 速度上限，需和 checkpoint 匹配
+acc_max_train: 6.0  # 训练时 primitive 加速度上限，需和 checkpoint 匹配
 
-# dataset: set image_size = primitive_num × downsampling_factor (×32 for ResNet-18) in each axis
-dataset_path: "../dataset"
-image_height: 96
-image_width: 160
+wg: 0.15  # 训练 guidance loss 权重，鼓励朝目标方向推进
+ws: 10.0  # 训练 smoothness loss 权重，惩罚 jerk
+wa: 1.0  # 训练 acceleration loss 权重，惩罚过大加速度
+wc: 1.0  # 训练 collision/safety loss 权重，惩罚靠近障碍物
 
-# trajectory and primitive param (Note: traj_time = 2 * radio / vel_max) (can be visualized in rviz)
-horizon_num: 5
-vertical_num: 3
-horizon_camera_fov: 90.0
-vertical_camera_fov: 60.0
-horizon_anchor_fov: 30.0
-vertical_anchor_fov: 30.0
-radio_range: 5.0    # planning horizon: 2 * radio_range
-radio_num: 1        # only support 1 currently
+dataset_path: "/mnt/nvme0n1p5/Flightmare_ws/src/flightmare/flightrl/examples/generated/person_naturemanufacture_grid_hardneg_10k_seed20260611"  # 训练数据集路径
+dataset_paths: []  # 可选：多个数据集混合训练；为空时沿用 dataset_path
+dataset_repeat_factors: []  # 可选：多个数据集时的训练重复倍数，例如 [1, 20]；验证集不重复
+dataset_eval_modes: []  # 可选：每个数据集用于 both/train_only/valid_only；live 单序列建议 train_only，避免验证泄漏
+temporal_split_unit: "scene"  # 时序数据划分单位：sequence、scene 或 unity_scene
+image_height: 90  # 网络输入图像高度，需和 primitive 垂直数量/下采样匹配
+image_width: 160  # 网络输入图像宽度，需和 primitive 水平数量/下采样匹配
+dataloader_num_workers: 0  # DataLoader worker 数量；本机调试用 0 更稳定
 
-# safety penalties
-d0: 1.2
-r: 0.6
+horizon_num: 5  # 水平方向 primitive 数量，影响网络输出栅格
+vertical_num: 3  # 垂直方向 primitive 数量，影响网络输出栅格
+horizon_camera_fov: 90.0  # 相机水平视场角，单位 deg
+vertical_camera_fov: 60.0  # 相机垂直视场角，单位 deg
+horizon_anchor_fov: 30.0  # 水平 primitive anchor 覆盖角，单位 deg
+vertical_anchor_fov: 30.0  # 垂直 primitive anchor 覆盖角，单位 deg
+radio_range: 5.0  # primitive 半径；规划距离约为 2 * radio_range
+radio_num: 1  # 半径层数；当前代码只支持 1
 
-# distribution for unit state sampling (can be visualized by 'python ./policy/yopo_dataset.py')
-vx_mean_unit: 0.4
-vy_mean_unit: 0.0
-vz_mean_unit: 0.0
-vx_std_unit: 2.0
-vy_std_unit: 0.45
-vz_std_unit: 0.3
-ax_mean_unit: 0.0
-ay_mean_unit: 0.0
-az_mean_unit: 0.0
-ax_std_unit: 0.5
-ay_std_unit: 0.5
-az_std_unit: 0.3
-goal_pitch_std: 10.0  # clip goal_length to: 2 * radio_range; 10% probability [0, 2 * radio_range]
-goal_yaw_std: 20.0
+d0: 1.2  # safety loss 障碍物影响距离阈值
+r: 0.6  # safety loss 机体/安全半径
+safety_voxel_size: 1.0  # SafetyLoss ESDF 体素大小，NatureManufacture 点云分辨率为 1m，不能用 0.2m 建整图
 
-# extend the map to avoid trajectory exceeding bounds (especially in z-axis) and treating the sky outside the map as obstacle
-map_expand_min: [0, 0, 0.2]
-map_expand_max: [0, 0, 6.0]
+vx_mean_unit: 0.4  # 训练采样速度 x 均值，归一化单位
+vy_mean_unit: 0.0  # 训练采样速度 y 均值，归一化单位
+vz_mean_unit: 0.0  # 训练采样速度 z 均值，归一化单位
+vx_std_unit: 2.0  # 训练采样速度 x 方差尺度，归一化单位
+vy_std_unit: 0.45  # 训练采样速度 y 方差尺度，归一化单位
+vz_std_unit: 0.3  # 训练采样速度 z 方差尺度，归一化单位
+ax_mean_unit: 0.0  # 训练采样加速度 x 均值，归一化单位
+ay_mean_unit: 0.0  # 训练采样加速度 y 均值，归一化单位
+az_mean_unit: 0.0  # 训练采样加速度 z 均值，归一化单位
+ax_std_unit: 0.5  # 训练采样加速度 x 方差尺度，归一化单位
+ay_std_unit: 0.5  # 训练采样加速度 y 方差尺度，归一化单位
+az_std_unit: 0.3  # 训练采样加速度 z 方差尺度，归一化单位
+goal_pitch_std: 10.0  # 训练目标 pitch 扰动标准差，单位 deg
+goal_yaw_std: 20.0  # 训练目标 yaw 扰动标准差，单位 deg
+
+map_expand_min: [0, 0, 0.2]  # 训练安全检查地图最小扩展，避免边界误判
+map_expand_max: [0, 0, 6.0]  # 训练安全检查地图最大扩展，尤其允许 z 方向空间
+
+w_cost: 1.0  # 训练轨迹 score loss 权重
+w_target: 1.0  # 训练目标位置回归 loss 权重
+w_objectness: 1.0  # 训练目标 objectness loss 权重
+lambda_negative_obj: 0.5  # 论文 Eq.(16) 中负样本 objectness 权重 λ2
+lambda_hard_negative_obj: 0.0  # 论文公式外 hard negative 项，严格复现默认关闭
+hard_negative_obj_topk: 0  # 论文公式外 hard negative 项，严格复现默认关闭
+ignore_neighbor_grids: 1  # 目标中心邻近 grid 只做轨迹安全训练，不作为 objectness 负样本
+lambda_positive_traj: 1.0  # tracking 正样本 grid 轨迹代价权重
+lambda_negative_traj: 1.0  # navigation-like: 强化非正样本 grid 的轨迹几何监督，让候选轨迹更接近原始长 primitive
+tracking_use_goal_cost: true  # tracking 时给可见目标帧加入目标方向 progress 代价
+tracking_score_include_goal_cost: true  # 工程跟踪模式：正样本 score label 包含目标跟随代价，避免 score 只学安全/平滑
+tracking_non_positive_goal_weight: 0.0  # non-positive grid 不加目标方向 progress；如需变长由 length_cost 单独控制
+tracking_score_include_non_positive_goal_cost: false  # 论文式默认：non-positive grid 的 score label 只包含 base cost
+tracking_non_positive_length_weight: 1.0  # 可见帧 non-positive grid 的单纯变长代价；只奖励终点距离，不约束朝目标方向
+tracking_non_positive_length_cap: 10.0  # non-positive 单纯变长的最大有效长度，单位 m；通常等于 2 * radio_range
+tracking_non_positive_length_xy_only: true  # 单纯变长只看水平距离，避免把上飞当作有效变长
+tracking_score_include_non_positive_length_cost: true  # navigation-like: score label 同步包含单纯变长代价，fallback/排序也偏向长轨迹
+tracking_goal_cost_mode: "progress_cap"  # progress_cap: 只奖励朝目标方向的投影长度；l2_terminal: 旧的终点 L2 距离
+tracking_progress_cap: 8.0  # 正样本朝目标方向的最大有效投影，单位 m；超过 cap 不再额外降 loss
+tracking_progress_xy_only: true  # 正样本 tracking progress 只看水平投影，不惩罚侧向绕行/垂直偏差
+tracking_use_lost_forward_cost: false  # 无目标帧是否加入沿丢失方向继续前进的代价；关闭时只保留 base cost
+tracking_score_include_lost_forward_cost: false  # 无目标帧 score label 是否同步包含 lost_forward_cost
+lost_forward_direction: "target"  # target: 无目标帧沿隐藏/预测目标方向；body_forward: 旧逻辑沿机体前方
+lost_forward_min_target_norm: 0.001  # 不可见帧目标方向低于该阈值时不加 lost_forward，只作为无目标负样本
+lost_forward_progress_cap: 8.0  # 无目标帧水平前进投影 cap，单位 m
+lost_forward_xy_only: true  # 无目标帧只奖励水平前进，避免把上飞当作有效追踪
+w_lost_forward: 0.0  # lost_forward_cost 内部权重；0 表示无目标帧只训练 base cost
+lambda_lost_traj: 0.2  # 无目标帧轨迹项整体权重，默认与非正样本轨迹权重一致
+train_target_follow_distance: 0.0  # 论文 Jg 直接使用目标位置 gp，不加入跟随距离偏置
+train_target_height_offset: 0.0  # 训练标签期望轨迹终点相对目标高度的偏置，单位 m
+w_tracking_goal: 0.15  # tracking 的 λg，保持与 wg 一致
+
+target_prior_augmentation: false  # 论文式 6D 状态不输入目标先验；该项仅保留给旧 9D 实验
+target_prior_keep_prob: 0.25  # 保留真实 target_body 作为先验的概率
+target_prior_noise_prob: 0.35  # 对 target_body 加噪声的概率，训练抗目标位置漂移
+target_prior_zero_prob: 0.25  # 将目标先验置零的概率，模拟未锁定目标
+target_prior_bootstrap_prob: 0.15  # 使用前方 bootstrap 目标的概率，模拟运行时 cold-start
+target_prior_noise_std_xy: 1.0  # 目标先验水平噪声标准差，单位 m
+target_prior_noise_std_z: 0.3  # 目标先验高度噪声标准差，单位 m
+target_prior_bootstrap_distance: 10.0  # 前方 bootstrap 目标距离，和运行时默认 goal_length 对齐

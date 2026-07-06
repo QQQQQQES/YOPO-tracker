@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "scripts/analyze_flightmare_target_regression_bag.py", line 8, in <module>
+    import rosbag
+  File "/opt/ros/noetic/lib/python3/dist-packages/rosbag/__init__.py", line 33, in <module>
+    from .bag import Bag, Compression, ROSBagException, ROSBagFormatException, ROSBagUnindexedException
+  File "/opt/ros/noetic/lib/python3/dist-packages/rosbag/bag.py", line 53, in <module>
+    from Cryptodome.Cipher import AES
+ModuleNotFoundError: No module named 'Cryptodome'

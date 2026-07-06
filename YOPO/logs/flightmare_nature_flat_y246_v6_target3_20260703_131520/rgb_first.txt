@@ -1,0 +1,6 @@
+seq: 631
+stamp: 
+  secs: 1783055762
+  nsecs: 708556107
+frame_id: "flightmare_camera"
+---

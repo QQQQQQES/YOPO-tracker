@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "scripts/analyze_flightmare_target_regression_bag.py", line 8, in <module>
+    import rosbag
+ModuleNotFoundError: No module named 'rosbag'

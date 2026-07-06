@@ -1,0 +1,16 @@
+/flightmare/yopo/debug
+/flightmare/yopo/depth
+/flightmare/yopo/rgb
+/flightmare/yopo/target_world
+/mavros/setpoint_raw/attitude
+/mavros/state
+/rosout
+/rosout_agg
+/tf
+/yopo_runtime_test/force_disturbance
+/yopo_runtime_test/moment_disturbance
+/yopo_runtime_test/quadrotor_simulator_so3/uav
+/yopo_runtime_test/sim/imu
+/yopo_runtime_test/sim/odom
+/yopo_runtime_test/so3_cmd
+/yopo_runtime_test/so3_control/pos_cmd

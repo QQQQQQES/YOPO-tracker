@@ -1,0 +1,7 @@
+kx: (5.700000, 5.700000, 6.200000), kv: (3.400000, 3.400000, 4.000000) 
+[INFO] [1783233766.487046158]: Odom Recived! Ready to TakeOff...
+takeoff process start
+[INFO] [1783233766.488233565]: UAV will be armed!
+[INFO] [1783233766.488265614]: Takeoff called successfully
+takeoff altitude: 2 m
+takeoff velocity: 0.8 m/s

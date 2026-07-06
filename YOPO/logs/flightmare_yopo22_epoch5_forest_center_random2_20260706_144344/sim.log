@@ -1,0 +1,8 @@
+kx: (5.700000, 5.700000, 6.200000), kv: (3.400000, 3.400000, 4.000000) 
+[INFO] [1783320460.712880139]: Odom Recived! Ready to TakeOff...
+takeoff process start
+[INFO] [1783320460.714110748]: UAV will be armed!
+[INFO] [1783320460.714142268]: Takeoff called successfully
+takeoff altitude: 2 m
+takeoff velocity: 0.8 m/s
+[WARN] [1783320535.967149178]: Simulator loop overrun: loop_time = 15.76 ms > expected 1.00 ms!

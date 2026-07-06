@@ -1,0 +1,32 @@
+tensorrt not found.
+load runtime config from: /mnt/nvme0n1p5/YOPO/YOPO/config/yopo_runtime_flightmare_truth.yaml
+load weight from: /mnt/nvme0n1p5/YOPO/YOPO/saved/YOPO_8/epoch48.pth
+[INFO] [1783055764.652344]: Using PositionCommand from ros:quadrotor_msgs.msg (md5=4712f0609ca29a79af79a35ca3e3967a)
+---------- Param --------
+| max speed    =    6.0 |
+| max accel    =    6.0 |
+| traj time    =    1.7 |
+| max radio    =   10.0 |
+-------------------------
+[34mAverage Time Consuming:[0m depth-interpolation: [32m1.28 ms[0m; data-prepare: [32m1.20 ms[0m; network-inference: [32m19.96 ms[0m; post-process: [32m1.75 ms[0m; visualize-trajectory: [32m0.00 ms[0m
+YOPO Net Node Ready!
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.42 ms[0m; data-prepare: [32m0.59 ms[0m; network-inference: [32m3.25 ms[0m; post-process: [32m0.90 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.40 ms[0m; data-prepare: [32m0.57 ms[0m; network-inference: [32m3.07 ms[0m; post-process: [32m0.90 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.40 ms[0m; data-prepare: [32m0.58 ms[0m; network-inference: [32m2.94 ms[0m; post-process: [32m0.88 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.40 ms[0m; data-prepare: [32m0.58 ms[0m; network-inference: [32m2.86 ms[0m; post-process: [32m0.89 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.58 ms[0m; network-inference: [32m2.80 ms[0m; post-process: [32m0.91 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.59 ms[0m; network-inference: [32m2.76 ms[0m; post-process: [32m0.93 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.59 ms[0m; network-inference: [32m2.72 ms[0m; post-process: [32m0.95 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.42 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.75 ms[0m; post-process: [32m0.99 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.42 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.75 ms[0m; post-process: [32m1.02 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.42 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.75 ms[0m; post-process: [32m1.06 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.42 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.75 ms[0m; post-process: [32m1.08 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.74 ms[0m; post-process: [32m1.08 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.74 ms[0m; post-process: [32m1.09 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.75 ms[0m; post-process: [32m1.11 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.75 ms[0m; post-process: [32m1.11 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.75 ms[0m; post-process: [32m1.12 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.75 ms[0m; post-process: [32m1.12 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.77 ms[0m; post-process: [32m1.13 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.78 ms[0m; post-process: [32m1.13 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.41 ms[0m; data-prepare: [32m0.60 ms[0m; network-inference: [32m2.79 ms[0m; post-process: [32m1.13 ms[0m; visualize-trajectory: [32m0.01 ms[0m

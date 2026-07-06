@@ -1,0 +1,288 @@
+tensorrt not found.
+load runtime config from: /mnt/nvme0n1p5/YOPO/YOPO/config/yopo_runtime_bag_image_debug.yaml
+load weight from: /mnt/nvme0n1p5/YOPO/YOPO/saved/YOPO_8/epoch48.pth
+[INFO] [1782985062.009148, 0.000000]: Using PositionCommand from ros:quadrotor_msgs.msg (md5=4712f0609ca29a79af79a35ca3e3967a)
+---------- Param --------
+| max speed    =    3.0 |
+| max accel    =    1.5 |
+| traj time    =    3.3 |
+| max radio    =   10.0 |
+-------------------------
+[34mAverage Time Consuming:[0m depth-interpolation: [32m3.90 ms[0m; data-prepare: [32m0.74 ms[0m; network-inference: [32m18.60 ms[0m; post-process: [32m1.62 ms[0m; visualize-trajectory: [32m0.01 ms[0m
+[ERROR] [1782985062.725494, 1779854804.030940]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985062.773585, 1779854804.083858]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985062.793440, 1779854804.104860]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985062.826138, 1779854804.135094]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985062.867222, 1779854804.178308]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985062.892371, 1779854804.203761]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985062.926678, 1779854804.237299]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985062.969752, 1779854804.281873]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985062.993596, 1779854804.306670]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985063.025601, 1779854804.337449]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985063.067392, 1779854804.378423]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985063.096556, 1779854804.411594]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985063.130853, 1779854804.441768]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985063.170743, 1779854804.482945]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985063.194861, 1779854804.503056]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985063.226614, 1779854804.533223]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985063.265470, 1779854804.577063]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985063.294418, 1779854804.608965]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+[ERROR] [1782985063.328567, 1779854804.642055]: bad callback: <bound method YopoNet.callback_depth of <__main__.YopoNet object at 0x7f30c9371310>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 750, in _invoke_callback
+    cb(msg)
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "test_yopo_ros.py", line 505, in callback_depth
+    self.visualize_trajectory(score_pred, endstate_w)
+  File "test_yopo_ros.py", line 991, in visualize_trajectory
+    self.optimal_poly_x.get_position(t_values),
+AttributeError: 'NoneType' object has no attribute 'get_position'
+
+YOPO Net Node Ready!
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.84 ms[0m; data-prepare: [32m0.45 ms[0m; network-inference: [32m3.56 ms[0m; post-process: [32m0.93 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.62 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.54 ms[0m; post-process: [32m0.59 ms[0m; visualize-trajectory: [32m0.63 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.40 ms[0m; post-process: [32m0.53 ms[0m; visualize-trajectory: [32m0.65 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.57 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.35 ms[0m; post-process: [32m0.50 ms[0m; visualize-trajectory: [32m0.65 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.57 ms[0m; data-prepare: [32m0.45 ms[0m; network-inference: [32m2.31 ms[0m; post-process: [32m0.48 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.57 ms[0m; data-prepare: [32m0.45 ms[0m; network-inference: [32m2.28 ms[0m; post-process: [32m0.47 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.56 ms[0m; data-prepare: [32m0.45 ms[0m; network-inference: [32m2.26 ms[0m; post-process: [32m0.47 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.56 ms[0m; data-prepare: [32m0.45 ms[0m; network-inference: [32m2.26 ms[0m; post-process: [32m0.49 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.56 ms[0m; data-prepare: [32m0.45 ms[0m; network-inference: [32m2.26 ms[0m; post-process: [32m0.51 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.55 ms[0m; data-prepare: [32m0.45 ms[0m; network-inference: [32m2.26 ms[0m; post-process: [32m0.52 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.55 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.26 ms[0m; post-process: [32m0.53 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.55 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.25 ms[0m; post-process: [32m0.54 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.55 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.25 ms[0m; post-process: [32m0.54 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.54 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.25 ms[0m; post-process: [32m0.54 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.55 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.24 ms[0m; post-process: [32m0.55 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.55 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.23 ms[0m; post-process: [32m0.55 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.56 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.22 ms[0m; post-process: [32m0.55 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.57 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.22 ms[0m; post-process: [32m0.55 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.57 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.22 ms[0m; post-process: [32m0.56 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.22 ms[0m; post-process: [32m0.56 ms[0m; visualize-trajectory: [32m0.68 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.22 ms[0m; post-process: [32m0.56 ms[0m; visualize-trajectory: [32m0.68 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.22 ms[0m; post-process: [32m0.56 ms[0m; visualize-trajectory: [32m0.68 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.21 ms[0m; post-process: [32m0.56 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.21 ms[0m; post-process: [32m0.56 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.21 ms[0m; post-process: [32m0.56 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.20 ms[0m; post-process: [32m0.57 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.20 ms[0m; post-process: [32m0.57 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.57 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.43 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.57 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.43 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.57 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.43 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.57 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.18 ms[0m; post-process: [32m0.57 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.18 ms[0m; post-process: [32m0.57 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.18 ms[0m; post-process: [32m0.57 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.18 ms[0m; post-process: [32m0.57 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.18 ms[0m; post-process: [32m0.58 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.18 ms[0m; post-process: [32m0.58 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.18 ms[0m; post-process: [32m0.58 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.18 ms[0m; post-process: [32m0.58 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.59 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.18 ms[0m; post-process: [32m0.58 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.18 ms[0m; post-process: [32m0.58 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.58 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.58 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.58 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.59 ms[0m; visualize-trajectory: [32m0.67 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.59 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.59 ms[0m; visualize-trajectory: [32m0.66 ms[0m
+[34mAverage Time Consuming:[0m depth-interpolation: [32m0.58 ms[0m; data-prepare: [32m0.44 ms[0m; network-inference: [32m2.19 ms[0m; post-process: [32m0.59 ms[0m; visualize-trajectory: [32m0.66 ms[0m

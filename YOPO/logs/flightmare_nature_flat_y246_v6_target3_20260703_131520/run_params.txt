@@ -1,0 +1,5 @@
+scene_id=2 NatureManufacture
+scene_origin=(42.0,246.0,60.015)
+target_start_local=(4.0,0.0,0.3938), target_root_scene_z=60.4088
+route_scene_xy=x46..126,y246 target_cmd_x=3.0mps uav_velocity=6.0mps duration=25s
+analysis_truth_z_override=2.0

@@ -1,0 +1,62 @@
+{
+  "duration_s": 30.0,
+  "odom_samples": 3008,
+  "cmd_samples": 0,
+  "debug_samples": 850,
+  "odom_csv": "/mnt/nvme0n1p5/YOPO/YOPO/logs/flightmare_yopo9_epoch30_detector_progress_2ms_vel6_20260705_143222/monitor_odom.csv",
+  "cmd_csv": "/mnt/nvme0n1p5/YOPO/YOPO/logs/flightmare_yopo9_epoch30_detector_progress_2ms_vel6_20260705_143222/monitor_cmd.csv",
+  "debug_csv": "/mnt/nvme0n1p5/YOPO/YOPO/logs/flightmare_yopo9_epoch30_detector_progress_2ms_vel6_20260705_143222/monitor_debug.csv",
+  "start_pos": [
+    0.0,
+    0.0,
+    2.007999914521841
+  ],
+  "end_pos": [
+    0.0,
+    0.0,
+    2.0079999140766525
+  ],
+  "target": [
+    2.0,
+    0.0,
+    2.0
+  ],
+  "start_dist3": 2.0000159995940927,
+  "min_dist3": 2.000015999585878,
+  "end_dist3": 2.000015999592312,
+  "start_dist_xy": 2.0,
+  "min_dist_xy": 2.0,
+  "end_dist_xy": 2.0,
+  "max_z": 2.0079999147352,
+  "min_z": 2.007999912468196,
+  "target_source_counts": {
+    "detector": 850
+  },
+  "selection_reason_counts": {
+    "target_distance_terminal": 850
+  },
+  "selected_action_counts": {
+    "7": 803,
+    "5": 46,
+    "6": 1
+  },
+  "mean_max_objectness": 0.9896047731708077,
+  "detected_ratio": 1.0,
+  "mean_selected_terminal_progress": 0.3421684662699217,
+  "mean_selected_terminal_distance": 2.0621729791971735,
+  "last_debug": {
+    "t": 30.192155122756958,
+    "selected_action": 7,
+    "selection_reason": "target_distance_terminal",
+    "target_source": "detector",
+    "min_score": 1.580609917640686,
+    "selected_score": 2.354097604751587,
+    "max_objectness": 0.9923237562179565,
+    "selected_objectness": 0.9923237562179565,
+    "selected_terminal_distance": 2.1748009538575874,
+    "selected_terminal_progress": 0.32270451051396265,
+    "selected_terminal_lateral_error": 0.14509191745549266,
+    "detected": true,
+    "confidence": 0.9923237562179565
+  }
+}

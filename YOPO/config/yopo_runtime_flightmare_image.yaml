@@ -1,0 +1,57 @@
+# Flightmare human-target closed-loop test using image/network detection only.
+# Paper-style inference chain:
+# objectness filter -> EKF consistency gate -> target-space NMS -> min score.
+# target_truth_topic stays empty here; truth can still be recorded externally for evaluation.
+
+use_tensorrt: 0
+trial: 17
+epoch: 5
+weight: /mnt/nvme0n1p5/YOPO/YOPO/saved/YOPO_17/epoch5.pth
+
+goal: [2.0, 0.0, 2.0]
+velocity: 3.0
+pitch_angle_deg: 0.0
+
+odom_topic: /yopo_runtime_test/sim/odom
+depth_topic: /flightmare/yopo/depth
+rgb_topic: /flightmare/yopo/rgb
+rgb_timeout: 0.2
+
+ctrl_topic: /yopo_runtime_test/so3_control/pos_cmd
+publish_pos_cmd: 1
+publish_poly_traj: 0
+poly_traj_topic: /planning_cmd/poly_traj
+plan_from_reference: 0
+
+selection_mode: paper
+objectness_threshold: 0.5
+target_selection_score_margin: -1  # only used by target_distance; paper mode ignores this
+target_consistency_gate: 3.0
+target_nms_distance: 1.0
+target_timeout: 1.0
+
+target_truth_topic: ""
+target_truth_timeout: 1.0
+target_truth_follow_z: null
+use_truth_target_in_paper: 0
+
+no_target_behavior: hold
+no_target_timeout: 0.5
+lost_target_progress_enabled: 1
+lost_target_progress_timeout: 1.2
+lost_target_progress_weight: 0.05
+lost_target_progress_cap: 8.0
+lost_target_progress_xy_only: 1
+
+target_process_noise: 2.0
+target_measurement_noise: 0.5
+use_target_yaw: 1
+use_target_prior: 1
+disable_arrive_check: 1
+
+planning_min_z: 1.7
+planning_max_z: 2.5
+planning_max_abs_delta_z: 0.25
+
+verbose: 0
+visualize: 1

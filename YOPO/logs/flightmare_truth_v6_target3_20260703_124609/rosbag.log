@@ -1,0 +1,9 @@
+[INFO] [1783053999.197966003]: Subscribing to /flightmare/yopo/debug
+[INFO] [1783053999.199242526]: Subscribing to /flightmare/yopo/depth
+[INFO] [1783053999.200029989]: Subscribing to /flightmare/yopo/rgb
+[INFO] [1783053999.201028388]: Subscribing to /flightmare/yopo/target_world
+[INFO] [1783053999.202044156]: Subscribing to /yopo_net/target_world
+[INFO] [1783053999.202751830]: Subscribing to /yopo_net/tracking_debug
+[INFO] [1783053999.203378777]: Subscribing to /yopo_runtime_test/sim/odom
+[INFO] [1783053999.203966294]: Subscribing to /yopo_runtime_test/so3_control/pos_cmd
+[INFO] [1783053999.205021401]: Recording to '/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_truth_v6_target3_20260703_124609/flightmare_truth_v6_target3.bag'.

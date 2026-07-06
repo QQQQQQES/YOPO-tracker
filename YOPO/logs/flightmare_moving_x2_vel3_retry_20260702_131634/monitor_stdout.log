@@ -1,0 +1,82 @@
+{
+  "duration_s": 15.0,
+  "odom_samples": 1505,
+  "cmd_samples": 583,
+  "debug_samples": 377,
+  "odom_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_moving_x2_vel3_retry_20260702_131634/monitor_odom.csv",
+  "cmd_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_moving_x2_vel3_retry_20260702_131634/monitor_cmd.csv",
+  "debug_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_moving_x2_vel3_retry_20260702_131634/monitor_debug.csv",
+  "start_pos": [
+    0.0,
+    0.0,
+    2.007999913732861
+  ],
+  "end_pos": [
+    14.575581637219935,
+    3.5709888811896415,
+    2.498809447514874
+  ],
+  "target": [
+    34.1396598815918,
+    0.0,
+    2.0
+  ],
+  "start_dist3": 2.0000159995909366,
+  "min_dist3": 2.0000159995909366,
+  "end_dist3": 19.893565040143372,
+  "start_dist_xy": 2.0,
+  "min_dist_xy": 2.0,
+  "end_dist_xy": 19.88731050548275,
+  "max_z": 2.559347234237405,
+  "min_z": 2.0033862690318553,
+  "start_cmd_pos": [
+    3.7797345072332842e-06,
+    -4.782801253915644e-07,
+    2.0080004486650695
+  ],
+  "end_cmd_pos": [
+    14.575580355875958,
+    3.570991042342631,
+    2.498809524729805
+  ],
+  "max_cmd_z": 2.5593483656101896,
+  "min_cmd_z": 2.0033196988441864,
+  "target_source_counts": {
+    "truth": 377
+  },
+  "selection_reason_counts": {
+    "target_distance_terminal": 377
+  },
+  "selected_action_counts": {
+    "7": 154,
+    "6": 65,
+    "1": 2,
+    "8": 72,
+    "9": 7,
+    "12": 3,
+    "11": 3,
+    "5": 55,
+    "0": 3,
+    "2": 6,
+    "3": 7
+  },
+  "mean_max_objectness": 0.99999285898411,
+  "detected_ratio": 1.0,
+  "mean_selected_terminal_progress": 5.49699997676901,
+  "mean_selected_terminal_distance": 10.672233888657827,
+  "last_debug": {
+    "t": 15.144958019256592,
+    "selected_action": 7,
+    "selection_reason": "target_distance_terminal",
+    "target_source": "truth",
+    "min_score": 0.5007425546646118,
+    "selected_score": 0.6794295907020569,
+    "max_objectness": 1.0,
+    "selected_objectness": 1.0,
+    "selected_terminal_distance": 13.33321290312218,
+    "selected_terminal_progress": 6.714427388426205,
+    "selected_terminal_lateral_error": 1.769681167112539,
+    "detected": true,
+    "confidence": 1.0
+  }
+}

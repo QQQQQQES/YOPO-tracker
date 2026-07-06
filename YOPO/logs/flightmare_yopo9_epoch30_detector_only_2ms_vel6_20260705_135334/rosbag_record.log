@@ -1,0 +1,9 @@
+[INFO] [1783231047.382773936]: Subscribing to /flightmare/yopo/debug
+[INFO] [1783231047.383687427]: Subscribing to /flightmare/yopo/depth
+[INFO] [1783231047.384402851]: Subscribing to /flightmare/yopo/rgb
+[INFO] [1783231047.385055105]: Subscribing to /flightmare/yopo/target_cmd_vel
+[INFO] [1783231047.385646020]: Subscribing to /flightmare/yopo/target_world
+[INFO] [1783231047.386243524]: Subscribing to /yopo_net/tracking_debug
+[INFO] [1783231047.386850599]: Subscribing to /yopo_runtime_test/sim/odom
+[INFO] [1783231047.387478243]: Subscribing to /yopo_runtime_test/so3_control/pos_cmd
+[INFO] [1783231047.388618682]: Recording to 'epoch30_detector_only_2ms_vel6.bag'.

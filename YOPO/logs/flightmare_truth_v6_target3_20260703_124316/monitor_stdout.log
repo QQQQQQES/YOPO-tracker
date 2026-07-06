@@ -1,0 +1,9 @@
+{
+  "duration_s": 25.0,
+  "odom_samples": 0,
+  "cmd_samples": 0,
+  "debug_samples": 0,
+  "odom_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_truth_v6_target3_20260703_124316/monitor_odom.csv",
+  "cmd_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_truth_v6_target3_20260703_124316/monitor_cmd.csv",
+  "debug_csv": "/mnt/nvme0n1p5/YOPO/YOPO/run_logs/flightmare_truth_v6_target3_20260703_124316/monitor_debug.csv"
+}

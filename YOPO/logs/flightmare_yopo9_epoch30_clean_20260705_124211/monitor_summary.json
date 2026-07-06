@@ -1,0 +1,85 @@
+{
+  "duration_s": 30.0,
+  "odom_samples": 3009,
+  "cmd_samples": 1216,
+  "debug_samples": 758,
+  "odom_csv": "/mnt/nvme0n1p5/YOPO/YOPO/logs/flightmare_yopo9_epoch30_clean_20260705_124211/monitor_odom.csv",
+  "cmd_csv": "/mnt/nvme0n1p5/YOPO/YOPO/logs/flightmare_yopo9_epoch30_clean_20260705_124211/monitor_cmd.csv",
+  "debug_csv": "/mnt/nvme0n1p5/YOPO/YOPO/logs/flightmare_yopo9_epoch30_clean_20260705_124211/monitor_debug.csv",
+  "start_pos": [
+    0.0,
+    0.0,
+    2.007999913759698
+  ],
+  "end_pos": [
+    0.17827748805108326,
+    4.101118232760223,
+    2.5118632564513805
+  ],
+  "target": [
+    2.0,
+    0.0,
+    2.0
+  ],
+  "start_dist3": 2.000015999591044,
+  "min_dist3": 2.000015998712224,
+  "end_dist3": 4.516619052225328,
+  "start_dist_xy": 2.0,
+  "min_dist_xy": 2.0,
+  "end_dist_xy": 4.487520882360305,
+  "max_z": 2.563880781742179,
+  "min_z": 2.007723645709465,
+  "start_cmd_pos": [
+    -2.749220550703502e-06,
+    1.336311989225367e-06,
+    2.0080020466125825
+  ],
+  "end_cmd_pos": [
+    0.18638565026460405,
+    4.105386253064985,
+    2.511796860832773
+  ],
+  "max_cmd_z": 2.563885875704976,
+  "min_cmd_z": 2.0077429160242133,
+  "target_source_counts": {
+    "truth": 758
+  },
+  "selection_reason_counts": {
+    "target_distance_terminal": 758
+  },
+  "selected_action_counts": {
+    "5": 26,
+    "7": 130,
+    "0": 35,
+    "8": 219,
+    "13": 8,
+    "14": 18,
+    "9": 125,
+    "11": 3,
+    "4": 3,
+    "3": 21,
+    "12": 3,
+    "1": 28,
+    "6": 136,
+    "2": 3
+  },
+  "mean_max_objectness": 0.9385016431287423,
+  "detected_ratio": 0.9617414248021108,
+  "mean_selected_terminal_progress": 1.7102998267204372,
+  "mean_selected_terminal_distance": 2.2635064902934823,
+  "last_debug": {
+    "t": 30.19555401802063,
+    "selected_action": 1,
+    "selection_reason": "target_distance_terminal",
+    "target_source": "truth",
+    "min_score": 0.8751145601272583,
+    "selected_score": 1.367859959602356,
+    "max_objectness": 0.9911378026008606,
+    "selected_objectness": 0.9911378026008606,
+    "selected_terminal_distance": 3.0553427841177725,
+    "selected_terminal_progress": 1.7053048676337066,
+    "selected_terminal_lateral_error": 1.1951117637910569,
+    "detected": true,
+    "confidence": 0.9911378026008606
+  }
+}

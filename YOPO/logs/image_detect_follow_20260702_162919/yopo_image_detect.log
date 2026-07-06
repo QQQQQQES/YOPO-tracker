@@ -1,0 +1,24 @@
+tensorrt not found.
+load weight from: /mnt/nvme0n1p5/YOPO/YOPO/saved/YOPO_8/epoch48.pth
+[INFO] [1782980999.287621]: Using PositionCommand from ros:quadrotor_msgs.msg (md5=4712f0609ca29a79af79a35ca3e3967a)
+---------- Param --------
+| max speed    =    3.0 |
+| max accel    =    1.5 |
+| traj time    =    3.3 |
+| max radio    =   10.0 |
+-------------------------
+YOPO Net Node Ready!
+shutdown request: user request
+Exception in thread Thread-21:
+Traceback (most recent call last):
+  File "/home/zml/anaconda3/envs/yopo/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/timer.py", line 240, in run
+    self._callback(TimerEvent(last_expected, last_real, current_expected, current_real, last_duration))
+  File "/mnt/nvme0n1p5/YOPO/YOPO/test_yopo_ros.py", line 741, in control_pub
+    self.ctrl_pub.publish(control_msg)
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 882, in publish
+    self.impl.publish(data)
+  File "/opt/ros/noetic/lib/python3/dist-packages/rospy/topics.py", line 1041, in publish
+    raise ROSException("publish() to a closed topic")
+rospy.exceptions.ROSException: publish() to a closed topic
